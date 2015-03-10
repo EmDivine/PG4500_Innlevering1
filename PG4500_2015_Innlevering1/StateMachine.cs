@@ -6,7 +6,7 @@ namespace Robot_support_classes
 	public class StateMachine
 	{
 		States currentState = States.IDLE;
-		AdvancedRobot rob;
+		AdvancedRobot robot;
 		enum States
 		{
 			IDLE,
@@ -16,38 +16,40 @@ namespace Robot_support_classes
 		}
 
 		//Gets no state input
-		public StateMachine(AdvancedRobot rob)
+		public StateMachine(AdvancedRobot robot)
 		{
-			this.rob = rob;
+			this.robot = robot;
 		}
 
-		public States State
+		public string State
 		{
 			get
 			{
-				return currentState;
+				return currentState.ToString();
 			}
-			private set;
+			
 		}
 
-		public void SwitchState(States state)
+		public void SwitchState(string state)
 		{
+			States previousState = currentState;
 			switch (state)
 			{
 				default:
-				case States.IDLE: //Idle
-
+				case "IDLE": //Idle
+					currentState = States.IDLE;
 					break;
-				case States.ENGAGE: //Engage target
-
+				case "ENGAGE": //Engage target
+					currentState = States.ENGAGE;
 					break;
-				case States.SEARCH: //Searches for target
-
+				case "SEARCH": //Searches for target
+					currentState = States.SEARCH;
 					break;
-				case States.EVADE: //Evades incoming shots / charging bot
-
+				case "EVADE": //Evades incoming shots / charging bot
+					currentState = States.EVADE;
 					break;
 			}
+			robot.Out.WriteLine("{2}\t# Switched from: \"{0}\" to \"{1}\" ", previousState.ToString(), currentState.ToString(),  robot.Time);
 		}
 
 	}
