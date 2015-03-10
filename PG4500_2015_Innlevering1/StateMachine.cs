@@ -7,6 +7,7 @@ namespace Robot_support_classes
 	{
 		string currentState = "";
 		AdvancedRobot rob;
+		enum States {IDLE = 1, ENGAGE, SEARCH, EVADE}
 
 		//Gets no state input
 		public StateMachine(AdvancedRobot rob)
@@ -22,19 +23,19 @@ namespace Robot_support_classes
 			switch (state)
 			{
 				case "IDLE": //Idle
-					currentState = "IDLE";
+					currentState = States.IDLE.ToString();
 					break;
 				case "ENGAGE": //Engage target
-					currentState = "ENGAGE";
+					currentState = States.ENGAGE.ToString();
 					break;
 				case "SEARCH": //Searches for target
-					currentState = "SEARCH";
+					currentState = States.SEARCH.ToString();
 					break;
 				case "EVADE": //Evades incoming shots / charging bot
-					currentState = "EVADE";
+					currentState = States.EVADE.ToString();
 					break;
 				default:
-					currentState = "IDLE";
+					currentState = States.IDLE.ToString();
 					break;
 			}
 		}
