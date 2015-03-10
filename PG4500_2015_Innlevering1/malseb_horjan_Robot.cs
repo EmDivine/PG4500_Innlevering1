@@ -26,12 +26,12 @@ namespace PG4500_2015_Innlevering1
 		{
 			while (true)
 			{
-				if (scout.enemyCount < 1)
-				{
+				//if (Others < 1)
+				//{
 					fsm.SwitchState("SEARCH");
 					scout.sweep();
+				//}
 					Execute();
-				}
 			}
 		}
 
