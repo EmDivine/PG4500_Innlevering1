@@ -10,15 +10,12 @@ namespace PG4500_2015_Innlevering1
 		private Scout scout;
 		private Driver driver;
 
-		public malseb_horjan_Robot()
+
+		public override void Run()
 		{
 			gunner = new Gunner(this);
 			scout = new Scout(this);
 			driver = new Driver(this);
-		}
-
-		public override void Run()
-		{
 
 		}
 
@@ -26,5 +23,6 @@ namespace PG4500_2015_Innlevering1
 		{
 
 		}
+
 	}
 }
