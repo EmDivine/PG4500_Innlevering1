@@ -2,7 +2,7 @@
 
 namespace malseb_horjan_
 {
-    public class Class1
+    public class Robot
     {
     }
 }
