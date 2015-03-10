@@ -21,7 +21,7 @@ namespace Robot_support_classes
 			robot.WaitFor(new RadarTurnCompleteCondition(robot, 2));
 		}
 
-		public void countEnemies(string name)
+		public void registerEnemy(string name)
 		{
 			if (!enemyNames.Contains(name))
 			{
@@ -30,7 +30,7 @@ namespace Robot_support_classes
 			}
 		}
 
-		public void killEnemy(string name)
+		public void OnEnemyDeath(string name)
 		{
 			if (enemyNames.Contains(name))
 			{

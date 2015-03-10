@@ -42,7 +42,7 @@ namespace PG4500_2015_Innlevering1
 
 		public override void OnRobotDeath(RobotDeathEvent evnt)
 		{
-			scout.killEnemy(evnt.Name);
+			scout.OnEnemyDeath(evnt.Name);
 		}
 
 	}
