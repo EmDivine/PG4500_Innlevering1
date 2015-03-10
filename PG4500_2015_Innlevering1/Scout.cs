@@ -8,11 +8,12 @@ namespace Robot_support_classes
 		public Scout(AdvancedRobot robot)
 		{
 			this.robot = robot;
+			robot.IsAdjustRadarForGunTurn = true;
 		}
 
 		public void sweep()
 		{
-			robot.SetTurnRadarRight(360);
+			robot.SetTurnRadarRight(Rules.RADAR_TURN_RATE);
 		}
 	}
 }
