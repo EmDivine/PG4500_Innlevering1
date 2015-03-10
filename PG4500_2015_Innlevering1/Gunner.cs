@@ -10,5 +10,10 @@ namespace Robot_support_classes
 			this.robot = robot;
 			robot.IsAdjustGunForRobotTurn = true;
 		}
+
+		public void predict(double targetX, double targetY, double targetVelocity, double targetHeading)
+		{
+			//
+		}
 	}
 }

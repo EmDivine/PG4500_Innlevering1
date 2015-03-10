@@ -36,6 +36,8 @@ namespace Robot_support_classes
 			switch (state)
 			{
 				default:
+					robot.Out.WriteLine("{0}\t## Invalid state invoked; returning to idle.",robot.Time);
+					goto case "IDLE";
 				case "IDLE": //Idle
 					currentState = States.IDLE;
 					break;

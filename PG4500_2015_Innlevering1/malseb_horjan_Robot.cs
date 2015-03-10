@@ -27,14 +27,13 @@ namespace PG4500_2015_Innlevering1
 			while (true)
 			{
 				Search();
-					
 			}
 		}
 
 		public void Search()
 		{
 			//if (no lock-on) {}
-			if (!fsm.State.Equals("SEARCH"))
+			if (fsm.State != "SEARCH")
 			{
 				fsm.SwitchState("SEARCH");
 			}
@@ -50,7 +49,7 @@ namespace PG4500_2015_Innlevering1
 
 		public override void OnRobotDeath(RobotDeathEvent evnt)
 		{
-			scout.killEnemy(evnt.Name);
+			scout.OnEnemyDeath(evnt.Name);
 		}
 
 		public override void OnDeath(DeathEvent evnt)
