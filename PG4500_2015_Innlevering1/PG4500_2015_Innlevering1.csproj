@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PG4500_2015_Innlevering1</RootNamespace>
-    <AssemblyName>malseb_horjan_</AssemblyName>
+    <AssemblyName>PG4500_2015_Innlevering1</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
