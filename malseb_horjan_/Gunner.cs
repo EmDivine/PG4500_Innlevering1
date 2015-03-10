@@ -1,6 +1,6 @@
 ﻿using Robocode;
 
-namespace malseb_horjan_
+namespace Robot_support_classes
 {
 	class Gunner
 	{

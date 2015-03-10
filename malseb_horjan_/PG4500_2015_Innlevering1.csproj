@@ -7,7 +7,7 @@
     <ProjectGuid>{7EB09C49-74A5-4BEA-B09C-32167927076C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>malseb_horjan_</RootNamespace>
+    <RootNamespace>PG4500_2015_Innlevering1</RootNamespace>
     <AssemblyName>malseb_horjan_</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
