@@ -26,13 +26,21 @@ namespace PG4500_2015_Innlevering1
 		{
 			while (true)
 			{
-				//if (Others < 1)
-				//{
-					fsm.SwitchState("SEARCH");
-					scout.sweep();
-				//}
-					Execute();
+				Search();
+					
 			}
+		}
+
+		public void Search()
+		{
+			//if (no lock-on) {}
+			if (!fsm.State.Equals("SEARCH"))
+			{
+				fsm.SwitchState("SEARCH");
+			}
+			
+			scout.sweep();
+			Execute();
 		}
 
 		public override void OnScannedRobot(ScannedRobotEvent evnt)
@@ -43,6 +51,11 @@ namespace PG4500_2015_Innlevering1
 		public override void OnRobotDeath(RobotDeathEvent evnt)
 		{
 			scout.killEnemy(evnt.Name);
+		}
+
+		public override void OnDeath(DeathEvent evnt)
+		{
+			Out.WriteLine("{0}\t# ALL SYSTEMS DOWN! I REPEAT, ALL SYSTE...", Time);
 		}
 
 	}
