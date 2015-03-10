@@ -9,8 +9,9 @@ namespace Robot_support_classes
 		AdvancedRobot rob;
 
 		//Gets no state input
-		public StateMachine()
+		public StateMachine(AdvancedRobot rob)
 		{
+			this.rob = rob;
 			SwitchState("IDLE");
 		}
 
