@@ -6,18 +6,19 @@ namespace Robot_support_classes
 	class Scout
 	{
 		private AdvancedRobot robot;
-		//private int enemyCount;
 		private List<string> enemyNames;
 
 		public Scout(AdvancedRobot robot)
 		{
 			this.robot = robot;
 			robot.IsAdjustRadarForGunTurn = true;
+			enemyNames = new List<string>();
 		}
 
 		public void sweep()
 		{
-			robot.SetTurnRadarRight(Rules.RADAR_TURN_RATE);
+			robot.SetTurnRadarRight(360);
+			robot.WaitFor(new RadarTurnCompleteCondition(robot, 2));
 		}
 
 		public void countEnemies(string name)
@@ -25,33 +26,21 @@ namespace Robot_support_classes
 			if (!enemyNames.Contains(name))
 			{
 				enemyNames.Add(name);
-				robot.Out.WriteLine("{1}\t# enemy \"{0}\" spotted and registered.", name, robot.Time);
+				robot.Out.WriteLine("{1}\t# Enemy \"{0}\" spotted and registered.", name, robot.Time);
 			}
 		}
 
-		public int enemyCount
+		public void killEnemy(string name)
 		{
-			get
+			if (enemyNames.Contains(name))
 			{
-				return enemyNames.Count;
+				robot.Out.WriteLine("{0}\t# Enemy \"{1}\" died and was removed from registry.", robot.Time, name);
+				enemyNames.Remove(name);
 			}
-		}
-
-		//public int enemies
-		//{
-		//	get
-		//	{
-		//		return enemyCount;
-		//	}
-		//	private set
-		//	{
-		//		enemyCount = value;
-		//	}
-		//}
-
-		class EnemyFiredEvent : Event
-		{
-
+			else
+			{
+				robot.Out.WriteLine("{0}\t# Enemy \"{1}\" died the way he lived: unknown.", robot.Time, name);
+			}
 		}
 	}
 }
