@@ -2,7 +2,7 @@
 
 namespace Robot_support_classes
 {
-	class Mathr
+	namespace Mathr
 	{
 		public class Polar2
 		{
@@ -28,6 +28,26 @@ namespace Robot_support_classes
 			{
 				return new Vector2((float)Math.Cos(p.Angle), (float)Math.Sin(p.Angle)) * p.Distance;
 			}
+
+			public static Polar2 operator +(Polar2 p1, Polar2 p2)
+			{
+				return (Vector2)p1 + (Vector2)p2;
+			}
+
+			public static Polar2 operator +(Polar2 p, Vector2 v)
+			{
+				return (Vector2)p + v;
+			}
+
+			public static Polar2 operator *(Polar2 p, float f)
+			{
+				return new Polar2(p.Distance * f, p.Angle);
+			}
+
+			public static Polar2 operator *(float f, Polar2 p)
+			{
+				return p * f;
+			}
 		}
 
 		public class Vector2
@@ -49,14 +69,29 @@ namespace Robot_support_classes
 				Y = y;
 			}
 
+			public static implicit operator Polar2(Vector2 v)
+			{
+				return new Polar2((float)Math.Sqrt(v.X * v.X + v.Y * v.Y), (float)Math.Atan2(v.Y, v.X));
+			}
+
 			public static Vector2 operator *(Vector2 v, float f)
 			{
 				return new Vector2(v.X * f, v.Y * f);
 			}
 
-			public static implicit operator Polar2(Vector2 v)
+			public static Vector2 operator *(float f, Vector2 v)
 			{
-				return new Polar2((float)Math.Sqrt(v.X * v.X + v.Y * v.Y), (float)Math.Atan2(v.Y, v.X));
+				return v * f;
+			}
+
+			public static Vector2 operator +(Vector2 v1, Vector2 v2)
+			{
+				return new Vector2(v1.X + v2.X, v1.Y + v2.Y);
+			}
+
+			public static Vector2 operator +(Vector2 v, Polar2 p)
+			{
+				return v + (Vector2)p;
 			}
 		}
 	}
