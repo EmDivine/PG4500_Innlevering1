@@ -4,7 +4,7 @@ namespace Robot_support_classes
 {
 	class Mathr
 	{
-		public class PolarCoordinate
+		public class Polar2
 		{
 			public float Distance
 			{
@@ -18,13 +18,13 @@ namespace Robot_support_classes
 				set;
 			}
 
-			public PolarCoordinate(float distance, float angle)
+			public Polar2(float distance, float angle)
 			{
 				Distance = distance;
 				Angle = angle;
 			}
 
-			public static implicit operator Vector2(PolarCoordinate p)
+			public static implicit operator Vector2(Polar2 p)
 			{
 				return new Vector2((float)Math.Cos(p.Angle), (float)Math.Sin(p.Angle)) * p.Distance;
 			}
@@ -54,9 +54,9 @@ namespace Robot_support_classes
 				return new Vector2(v.X * f, v.Y * f);
 			}
 
-			public static implicit operator PolarCoordinate(Vector2 v)
+			public static implicit operator Polar2(Vector2 v)
 			{
-				return new PolarCoordinate((float)Math.Sqrt(v.X * v.X + v.Y * v.Y), (float)Math.Atan2(v.Y, v.X));
+				return new Polar2((float)Math.Sqrt(v.X * v.X + v.Y * v.Y), (float)Math.Atan2(v.Y, v.X));
 			}
 		}
 	}
