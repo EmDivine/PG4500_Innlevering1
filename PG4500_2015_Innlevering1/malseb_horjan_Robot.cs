@@ -1,5 +1,4 @@
 ﻿using Robocode;
-using System;
 using Robot_support_classes;
 
 namespace PG4500_2015_Innlevering1
