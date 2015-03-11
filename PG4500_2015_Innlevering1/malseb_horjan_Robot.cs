@@ -6,17 +6,17 @@ namespace PG4500_2015_Innlevering1
 	public class malseb_horjan_Robot : AdvancedRobot
 	{
 
-		private Gunner gunner;
-		private Scout scout;
-		private Driver driver;
-		private StateMachine fsm;
+		private Gunner _gunner;
+		private Scout _scout;
+		private Driver _driver;
+		private StateMachine _fsm;
 
 		public override void Run()
 		{
-			gunner = new Gunner(this);
-			scout = new Scout(this);
-			driver = new Driver(this);
-			fsm = new StateMachine(this);
+			_gunner = new Gunner(this);
+			_scout = new Scout(this);
+			_driver = new Driver(this);
+			_fsm = new StateMachine(this);
 
 			GameLoop();
 		}
@@ -32,12 +32,12 @@ namespace PG4500_2015_Innlevering1
 		public void Search()
 		{
 			//if (no lock-on) {}
-			if (fsm.State != "SEARCH")
+			if (_fsm.State != "SEARCH")
 			{
-				fsm.SwitchState("SEARCH");
+				_fsm.SwitchState("SEARCH");
 			}
 			
-			scout.sweep();
+			_scout.Sweep();
 			Execute();
 		}
 
@@ -48,7 +48,7 @@ namespace PG4500_2015_Innlevering1
 
 		public override void OnRobotDeath(RobotDeathEvent evnt)
 		{
-			scout.OnEnemyDeath(evnt.Name);
+			_scout.OnEnemyDeath(evnt.Name);
 		}
 
 		public override void OnDeath(DeathEvent evnt)

@@ -5,9 +5,9 @@ namespace Robot_support_classes
 {
 	public class StateMachine
 	{
-		States currentState = States.IDLE;
-		AdvancedRobot robot;
-		enum States
+		private States _currentState;
+		private AdvancedRobot _robot;
+		public enum States
 		{
 			IDLE,
 			ENGAGE,
@@ -15,43 +15,43 @@ namespace Robot_support_classes
 			EVADE
 		}
 
-		//Gets no state input
-		public StateMachine(AdvancedRobot robot)
+		public StateMachine(AdvancedRobot robot, string state = "IDLE")
 		{
-			this.robot = robot;
+			_robot = robot;
+			SwitchState(state);
 		}
 
 		public string State
 		{
 			get
 			{
-				return currentState.ToString();
+				return _currentState.ToString();
 			}
-			
+
 		}
 
 		public void SwitchState(string state)
 		{
-			States previousState = currentState;
+			States previousState = _currentState != null ? _currentState : States.IDLE;
 			switch (state)
 			{
 				default:
-					robot.Out.WriteLine("{0}\t## Invalid state invoked; returning to idle.",robot.Time);
+					_robot.Out.WriteLine("{0}\t## Invalid state invoked; returning to idle.", _robot.Time);
 					goto case "IDLE";
 				case "IDLE": //Idle
-					currentState = States.IDLE;
+					_currentState = States.IDLE;
 					break;
 				case "ENGAGE": //Engage target
-					currentState = States.ENGAGE;
+					_currentState = States.ENGAGE;
 					break;
 				case "SEARCH": //Searches for target
-					currentState = States.SEARCH;
+					_currentState = States.SEARCH;
 					break;
 				case "EVADE": //Evades incoming shots / charging bot
-					currentState = States.EVADE;
+					_currentState = States.EVADE;
 					break;
 			}
-			robot.Out.WriteLine("{2}\t# Switched from: \"{0}\" to \"{1}\" ", previousState.ToString(), currentState.ToString(),  robot.Time);
+			_robot.Out.WriteLine("{2}\t# Switched from: \"{0}\" to \"{1}\" ", previousState.ToString(), _currentState.ToString(), _robot.Time);
 		}
 
 	}

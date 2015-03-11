@@ -4,10 +4,10 @@ namespace Robot_support_classes
 {
 	class Driver
 	{
-		private AdvancedRobot robot;
+		private AdvancedRobot _robot;
 		public Driver(AdvancedRobot robot)
 		{
-			this.robot = robot;
+			_robot = robot;
 		}
 	}
 }

@@ -4,14 +4,14 @@ namespace Robot_support_classes
 {
 	class Gunner
 	{
-		private AdvancedRobot robot;
+		private AdvancedRobot _robot;
 		public Gunner(AdvancedRobot robot)
 		{
-			this.robot = robot;
-			robot.IsAdjustGunForRobotTurn = true;
+			_robot = robot;
+			_robot.IsAdjustGunForRobotTurn = true;
 		}
 
-		public void predict(double targetX, double targetY, double targetVelocity, double targetHeading)
+		public void Predict(double targetX, double targetY, double targetVelocity, double targetHeading)
 		{
 			//
 		}

@@ -6,36 +6,38 @@ namespace Robot_support_classes
 	{
 		public class PolarCoordinate
 		{
-			public float distance
+			public float Distance
 			{
 				get;
 				set;
 			}
-			private float angle
+
+			private float Angle
 			{
 				get;
 				set;
 			}
+
 			public PolarCoordinate(float distance, float angle)
 			{
-				this.distance = distance;
-				this.angle = angle;
+				Distance = distance;
+				Angle = angle;
 			}
 
 			public static implicit operator Vector2(PolarCoordinate p)
 			{
-				return new Vector2((float)Math.Cos(p.angle), (float)Math.Sin(p.angle)) * p.distance;
+				return new Vector2((float)Math.Cos(p.Angle), (float)Math.Sin(p.Angle)) * p.Distance;
 			}
 		}
 
 		public class Vector2
 		{
-			public float x
+			public float X
 			{
 				get;
 				set;
 			}
-			public float y
+			public float Y
 			{
 				get;
 				set;
@@ -43,18 +45,18 @@ namespace Robot_support_classes
 
 			public Vector2(float x, float y)
 			{
-				this.x = x;
-				this.y = y;
+				X = x;
+				Y = y;
 			}
 
 			public static Vector2 operator *(Vector2 v, float f)
 			{
-				return new Vector2(v.x * f, v.y * f);
+				return new Vector2(v.X * f, v.Y * f);
 			}
 
 			public static implicit operator PolarCoordinate(Vector2 v)
 			{
-				return new PolarCoordinate((float)Math.Sqrt(v.x * v.x + v.y * v.y), (float)Math.Atan2(v.y, v.x));
+				return new PolarCoordinate((float)Math.Sqrt(v.X * v.X + v.Y * v.Y), (float)Math.Atan2(v.Y, v.X));
 			}
 		}
 	}

@@ -5,41 +5,41 @@ namespace Robot_support_classes
 {
 	class Scout
 	{
-		private AdvancedRobot robot;
-		private List<string> enemyNames;
+		private AdvancedRobot _robot;
+		private List<string> _enemyNames;
 
 		public Scout(AdvancedRobot robot)
 		{
-			this.robot = robot;
-			robot.IsAdjustRadarForGunTurn = true;
-			enemyNames = new List<string>();
+			_robot = robot;
+			_robot.IsAdjustRadarForGunTurn = true;
+			_enemyNames = new List<string>();
 		}
 
-		public void sweep()
+		public void Sweep()
 		{
-			robot.SetTurnRadarRight(360);
-			robot.WaitFor(new RadarTurnCompleteCondition(robot, 2));
+			_robot.SetTurnRadarRight(360);
+			_robot.WaitFor(new RadarTurnCompleteCondition(_robot, 2));
 		}
 
-		public void registerEnemy(string name)
+		public void RegisterEnemy(string name)
 		{
-			if (!enemyNames.Contains(name))
+			if (!_enemyNames.Contains(name))
 			{
-				enemyNames.Add(name);
-				robot.Out.WriteLine("{1}\t# Enemy \"{0}\" spotted and registered.", name, robot.Time);
+				_enemyNames.Add(name);
+				_robot.Out.WriteLine("{1}\t# Enemy \"{0}\" spotted and registered.", name, _robot.Time);
 			}
 		}
 
 		public void OnEnemyDeath(string name)
 		{
-			if (enemyNames.Contains(name))
+			if (_enemyNames.Contains(name))
 			{
-				robot.Out.WriteLine("{0}\t# Enemy \"{1}\" died and was removed from registry.", robot.Time, name);
-				enemyNames.Remove(name);
+				_robot.Out.WriteLine("{0}\t# Enemy \"{1}\" died and was removed from registry.", _robot.Time, name);
+				_enemyNames.Remove(name);
 			}
 			else
 			{
-				robot.Out.WriteLine("{0}\t# Enemy \"{1}\" died the way he lived: unknown.", robot.Time, name);
+				_robot.Out.WriteLine("{0}\t# Enemy \"{1}\" died the way he lived: unknown.", _robot.Time, name);
 			}
 		}
 	}
