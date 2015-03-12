@@ -32,7 +32,7 @@ namespace Robot_support_classes
 			}
 		}
 
-		public void OnEnemyDeath(string name)
+		public void OnRobotDeath(string name)
 		{
 			if (_enemyNames.Contains(name))
 			{

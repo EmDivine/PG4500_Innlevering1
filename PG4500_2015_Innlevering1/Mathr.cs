@@ -3,7 +3,7 @@ using Robocode.Util;
 
 namespace Robot_support_classes
 {
-	namespace Mathr
+	namespace Coordinates
 	{
 		public class Polar2
 		{

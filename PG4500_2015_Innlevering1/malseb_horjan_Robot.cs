@@ -1,6 +1,7 @@
 ﻿using Robocode;
 using Robocode.Util;
 using Robot_support_classes;
+using Robot_support_classes.Coordinates;
 
 namespace PG4500_2015_Innlevering1
 {
@@ -52,7 +53,7 @@ namespace PG4500_2015_Innlevering1
 
 		public override void OnRobotDeath(RobotDeathEvent e)
 		{
-			_scout.OnEnemyDeath(e.Name);
+			_scout.OnRobotDeath(e.Name);
 		}
 
 		public override void OnDeath(DeathEvent e)
