@@ -1,4 +1,5 @@
 ﻿using Robocode;
+using Robocode.Util;
 using Robot_support_classes;
 
 namespace PG4500_2015_Innlevering1
@@ -35,23 +36,26 @@ namespace PG4500_2015_Innlevering1
 			if (_fsm.State != "SEARCH")
 			{
 				_fsm.SwitchState("SEARCH");
-			}
-			
-			_scout.Sweep();
-			Execute();
+            }
+            _scout.Sweep();
+            Scan();
 		}
 
-		public override void OnScannedRobot(ScannedRobotEvent evnt)
+		public override void OnScannedRobot(ScannedRobotEvent e)
 		{
+            _scout.RegisterEnemy(e.Name);
+            //Getting the absolute bearing of the target.
+            double radarTurn = HeadingRadians + e.BearingRadians - RadarHeadingRadians;
 
+            SetTurnRadarRightRadians(Utils.NormalRelativeAngle(radarTurn));
 		}
 
-		public override void OnRobotDeath(RobotDeathEvent evnt)
+		public override void OnRobotDeath(RobotDeathEvent e)
 		{
-			_scout.OnEnemyDeath(evnt.Name);
+			_scout.OnEnemyDeath(e.Name);
 		}
 
-		public override void OnDeath(DeathEvent evnt)
+		public override void OnDeath(DeathEvent e)
 		{
 			Out.WriteLine("{0}\t# ALL SYSTEMS DOWN! I REPEAT, ALL SYSTE...", Time);
 		}

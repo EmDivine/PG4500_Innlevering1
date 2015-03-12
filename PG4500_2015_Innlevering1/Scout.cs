@@ -17,8 +17,10 @@ namespace Robot_support_classes
 
 		public void Sweep()
 		{
-			_robot.SetTurnRadarRight(360);
-			_robot.WaitFor(new RadarTurnCompleteCondition(_robot, 2));
+			_robot.SetTurnRadarRightRadians(double.PositiveInfinity);
+            _robot.Execute();
+            
+            //_robot.WaitFor(new RadarTurnCompleteCondition(_robot, 2));
 		}
 
 		public void RegisterEnemy(string name)
