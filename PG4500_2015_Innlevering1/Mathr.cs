@@ -1,4 +1,5 @@
 ﻿using System;
+using Robocode.Util;
 
 namespace Robot_support_classes
 {
@@ -6,27 +7,47 @@ namespace Robot_support_classes
 	{
 		public class Polar2
 		{
-			public float Distance
+			private double _distance;
+			private double _angle;
+
+			public double Distance
 			{
-				get;
-				set;
+				get
+				{
+					return _distance;
+				}
+				set
+				{
+					if (value < 0)
+					{
+						value *= -1;
+						Angle += 180;
+					}
+					_distance = value;
+				}
 			}
 
-			private float Angle
+			private double Angle
 			{
-				get;
-				set;
+				get
+				{
+					return _angle;
+				}
+				set
+				{
+					_angle = Utils.NormalRelativeAngleDegrees(value);
+				}
 			}
 
-			public Polar2(float distance, float angle)
+			public Polar2(double distance, double angle)
 			{
-				Distance = distance;
 				Angle = angle;
+				Distance = distance;
 			}
 
 			public static implicit operator Vector2(Polar2 p)
 			{
-				return new Vector2((float)Math.Cos(p.Angle), (float)Math.Sin(p.Angle)) * p.Distance;
+				return new Vector2(Math.Cos(p.Angle), Math.Sin(p.Angle)) * p.Distance;
 			}
 
 			public static Polar2 operator +(Polar2 p1, Polar2 p2)
@@ -39,12 +60,12 @@ namespace Robot_support_classes
 				return (Vector2)p + v;
 			}
 
-			public static Polar2 operator *(Polar2 p, float f)
+			public static Polar2 operator *(Polar2 p, double f)
 			{
 				return new Polar2(p.Distance * f, p.Angle);
 			}
 
-			public static Polar2 operator *(float f, Polar2 p)
+			public static Polar2 operator *(double f, Polar2 p)
 			{
 				return p * f;
 			}
@@ -52,18 +73,18 @@ namespace Robot_support_classes
 
 		public class Vector2
 		{
-			public float X
+			public double X
 			{
 				get;
 				set;
 			}
-			public float Y
+			public double Y
 			{
 				get;
 				set;
 			}
 
-			public Vector2(float x, float y)
+			public Vector2(double x, double y)
 			{
 				X = x;
 				Y = y;
@@ -71,15 +92,15 @@ namespace Robot_support_classes
 
 			public static implicit operator Polar2(Vector2 v)
 			{
-				return new Polar2((float)Math.Sqrt(v.X * v.X + v.Y * v.Y), (float)Math.Atan2(v.Y, v.X));
+				return new Polar2(Math.Sqrt(v.X * v.X + v.Y * v.Y), Math.Atan2(v.Y, v.X));
 			}
 
-			public static Vector2 operator *(Vector2 v, float f)
+			public static Vector2 operator *(Vector2 v, double f)
 			{
 				return new Vector2(v.X * f, v.Y * f);
 			}
 
-			public static Vector2 operator *(float f, Vector2 v)
+			public static Vector2 operator *(double f, Vector2 v)
 			{
 				return v * f;
 			}
