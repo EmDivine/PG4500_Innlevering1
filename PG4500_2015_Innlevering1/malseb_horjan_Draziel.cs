@@ -5,7 +5,7 @@ using Robot_support_classes.Coordinates;
 
 namespace PG4500_2015_Innlevering1
 {
-	public class malseb_horjan_Robot : AdvancedRobot
+	public class malseb_horjan_Draziel : AdvancedRobot
 	{
 
 		private Gunner _gunner;

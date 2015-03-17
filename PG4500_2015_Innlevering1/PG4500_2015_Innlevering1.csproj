@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="Driver.cs" />
     <Compile Include="Gunner.cs" />
-    <Compile Include="malseb_horjan_Robot.cs" />
+    <Compile Include="malseb_horjan_Draziel.cs" />
     <Compile Include="Mathr.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scout.cs" />
