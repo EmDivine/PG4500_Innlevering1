@@ -25,30 +25,27 @@ namespace PG4500_2015_Innlevering1
 
 		public void GameLoop()
 		{
-			while (true)
-			{
 				Search();
-			}
 		}
 
 		public void Search()
 		{
 			//if (no lock-on) {}
-			if (_fsm.State != "SEARCH")
+			if (_fsm.State != States.SEARCH)
 			{
-				_fsm.SwitchState("SEARCH");
-            }
-            _scout.Sweep();
-            Scan();
+				_fsm.State = States.SEARCH;
+			}
+			while (_fsm.State == States.SEARCH)
+			{
+				_scout.Sweep();
+			Execute();
+			}
 		}
 
 		public override void OnScannedRobot(ScannedRobotEvent e)
 		{
-            _scout.RegisterEnemy(e.Name);
-            //Getting the absolute bearing of the target.
-            double radarTurn = HeadingRadians + e.BearingRadians - RadarHeadingRadians;
-
-            SetTurnRadarRightRadians(Utils.NormalRelativeAngle(radarTurn));
+			_scout.OnScannedRobot(e);
+			_gunner.OnScannedRobot(e);
 		}
 
 		public override void OnRobotDeath(RobotDeathEvent e)
@@ -61,5 +58,9 @@ namespace PG4500_2015_Innlevering1
 			Out.WriteLine("{0}\t# ALL SYSTEMS DOWN! I REPEAT, ALL SYSTE...", Time);
 		}
 
+		public override void OnWin(WinEvent evnt)
+		{
+			_fsm.State = States.IDLE;
+		}
 	}
 }

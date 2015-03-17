@@ -1,4 +1,5 @@
 ﻿using Robocode;
+using Robocode.Util;
 using System.Collections.Generic;
 
 namespace Robot
@@ -6,6 +7,7 @@ namespace Robot
 	class Scout
 	{
 		private AdvancedRobot _robot;
+		private long _timeSpotted;
 		private List<string> _enemyNames;
 
 		public Scout(AdvancedRobot robot)
@@ -13,16 +15,18 @@ namespace Robot
 			_robot = robot;
 			_robot.IsAdjustRadarForGunTurn = true;
 			_enemyNames = new List<string>();
+			_timeSpotted = -1000;
 		}
 
 		public void Sweep()
 		{
-			_robot.SetTurnRadarRightRadians(double.PositiveInfinity);
-            _robot.Execute();
-            
-            //_robot.WaitFor(new RadarTurnCompleteCondition(_robot, 2));
+			_robot.Scan();
+			if (_robot.Time > _timeSpotted + 100)
+			{
+				_robot.Out.WriteLine("{0}\t# Sweeping. _timeSpotted = {1}.", _robot.Time, _timeSpotted);
+				_robot.SetTurnRadarRight(360);
+			}
 		}
-
 		public void RegisterEnemy(string name)
 		{
 			if (!_enemyNames.Contains(name))
@@ -42,6 +46,25 @@ namespace Robot
 			else
 			{
 				_robot.Out.WriteLine("{0}\t# Enemy \"{1}\" died the way he lived: unknown.", _robot.Time, name);
+			}
+		}
+
+		public void OnScannedRobot(ScannedRobotEvent e)
+		{
+			RegisterEnemy(e.Name);
+
+			//Getting the absolute bearing of the target.
+			double radarTurn = _robot.Heading + e.Bearing - _robot.RadarHeading;
+
+			_robot.SetTurnRadarRight(Utils.NormalRelativeAngleDegrees(radarTurn));
+			_timeSpotted = _robot.Time;
+		}
+
+		private double radarHeading
+		{
+			get
+			{
+				return _robot.Heading - _robot.RadarHeading;
 			}
 		}
 	}

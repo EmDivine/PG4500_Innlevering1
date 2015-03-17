@@ -7,14 +7,14 @@ namespace Robot
 	{
 		public class Polar2
 		{
-			private double _distance;
+			private double _magnitude;
 			private double _angle;
 
-			public double Distance
+			public double Magnitude
 			{
 				get
 				{
-					return _distance;
+					return _magnitude;
 				}
 				set
 				{
@@ -23,11 +23,11 @@ namespace Robot
 						value *= -1;
 						Angle += 180;
 					}
-					_distance = value;
+					_magnitude = value;
 				}
 			}
 
-			private double Angle
+			public double Angle
 			{
 				get
 				{
@@ -39,15 +39,15 @@ namespace Robot
 				}
 			}
 
-			public Polar2(double distance, double angle)
+			public Polar2(double distance = 0, double angle = 0)
 			{
 				Angle = angle;
-				Distance = distance;
+				Magnitude = distance;
 			}
 
 			public static implicit operator Vector2(Polar2 p)
 			{
-				return new Vector2(Math.Cos(p.Angle), Math.Sin(p.Angle)) * p.Distance;
+				return new Vector2(Math.Cos(p.Angle), Math.Sin(p.Angle)) * p.Magnitude;
 			}
 
 			public static Polar2 operator +(Polar2 p1, Polar2 p2)
@@ -62,7 +62,7 @@ namespace Robot
 
 			public static Polar2 operator *(Polar2 p, double f)
 			{
-				return new Polar2(p.Distance * f, p.Angle);
+				return new Polar2(p.Magnitude * f, p.Angle);
 			}
 
 			public static Polar2 operator *(double f, Polar2 p)
@@ -72,7 +72,7 @@ namespace Robot
 
 			public static Polar2 operator -(Polar2 p)
 			{
-				return new Polar2(-p.Distance, p.Angle);
+				return new Polar2(-p.Magnitude, p.Angle);
 			}
 
 			public static Polar2 operator -(Polar2 p1, Polar2 p2)
@@ -99,7 +99,7 @@ namespace Robot
 				set;
 			}
 
-			public Vector2(double x, double y)
+			public Vector2(double x = 0, double y = 0)
 			{
 				X = x;
 				Y = y;
