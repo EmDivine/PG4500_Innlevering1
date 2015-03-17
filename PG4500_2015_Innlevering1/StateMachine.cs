@@ -1,7 +1,7 @@
 ﻿using System;
 using Robocode;
 
-namespace Robot_support_classes
+namespace Robot
 {
 	public class StateMachine
 	{

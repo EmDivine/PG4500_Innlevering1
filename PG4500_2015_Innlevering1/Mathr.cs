@@ -1,7 +1,7 @@
 ﻿using System;
 using Robocode.Util;
 
-namespace Robot_support_classes
+namespace Robot
 {
 	namespace Coordinates
 	{
@@ -69,6 +69,21 @@ namespace Robot_support_classes
 			{
 				return p * f;
 			}
+
+			public static Polar2 operator -(Polar2 p)
+			{
+				return new Polar2(-p.Distance, p.Angle);
+			}
+
+			public static Polar2 operator -(Polar2 p1, Polar2 p2)
+			{
+				return (Vector2)p1 - (Vector2)p2;
+			}
+
+			public static Polar2 operator -(Polar2 p, Vector2 v)
+			{
+				return (Vector2)p - v;
+			}
 		}
 
 		public class Vector2
@@ -113,6 +128,21 @@ namespace Robot_support_classes
 			public static Vector2 operator +(Vector2 v, Polar2 p)
 			{
 				return v + (Vector2)p;
+			}
+
+			public static Vector2 operator -(Vector2 v)
+			{
+				return new Vector2(-v.X, -v.Y);
+			}
+
+			public static Vector2 operator -(Vector2 v1, Vector2 v2)
+			{
+				return new Vector2(v1.X-v2.X, v2.Y-v2.Y);
+			}
+
+			public static Vector2 operator -(Vector2 v, Polar2 p)
+			{
+				return v - (Vector2)p;
 			}
 		}
 	}

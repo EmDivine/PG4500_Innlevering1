@@ -1,7 +1,7 @@
 ﻿using Robocode;
 using Robocode.Util;
-using Robot_support_classes;
-using Robot_support_classes.Coordinates;
+using Robot;
+using Robot.Coordinates;
 
 namespace PG4500_2015_Innlevering1
 {

@@ -1,6 +1,6 @@
 ﻿using Robocode;
 
-namespace Robot_support_classes
+namespace Robot
 {
 	class Gunner
 	{

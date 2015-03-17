@@ -1,7 +1,7 @@
 ﻿using Robocode;
 using System.Collections.Generic;
 
-namespace Robot_support_classes
+namespace Robot
 {
 	class Scout
 	{
