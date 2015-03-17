@@ -54,13 +54,13 @@ namespace Robot
 			RegisterEnemy(e.Name);
 
 			//Getting the absolute bearing of the target.
-			double radarTurn = _robot.Heading + e.Bearing - _robot.RadarHeading;
+			double radarTurn = e.Bearing + RadarBearing;
 
 			_robot.SetTurnRadarRight(Utils.NormalRelativeAngleDegrees(radarTurn));
 			_timeSpotted = _robot.Time;
 		}
 
-		private double radarHeading
+		private double RadarBearing
 		{
 			get
 			{
