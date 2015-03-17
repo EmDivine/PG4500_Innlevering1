@@ -16,7 +16,7 @@ namespace Robot
 				{
 					return _magnitude;
 				}
-				set
+				private set
 				{
 					if (value < 0)
 					{
@@ -33,21 +33,21 @@ namespace Robot
 				{
 					return _angle;
 				}
-				set
+				private set
 				{
 					_angle = Utils.NormalRelativeAngleDegrees(value);
 				}
 			}
 
-			public Polar2(double distance = 0, double angle = 0)
+			public Polar2(double magnitude = 0, double angle = 0)
 			{
 				Angle = angle;
-				Magnitude = distance;
+				Magnitude = magnitude;
 			}
 
 			public static implicit operator Vector2(Polar2 p)
 			{
-				return new Vector2(Math.Cos(p.Angle), Math.Sin(p.Angle)) * p.Magnitude;
+				return new Vector2(Math.Cos(Utils.ToRadians(p.Angle)), Math.Sin(Utils.ToRadians(p.Angle))) * p.Magnitude;
 			}
 
 			public static Polar2 operator +(Polar2 p1, Polar2 p2)
@@ -84,6 +84,11 @@ namespace Robot
 			{
 				return (Vector2)p - v;
 			}
+
+			public override string ToString()
+			{
+				return "[" + Angle + "," + Magnitude + "]";
+			}
 		}
 
 		public class Vector2
@@ -91,12 +96,12 @@ namespace Robot
 			public double X
 			{
 				get;
-				set;
+				private set;
 			}
 			public double Y
 			{
 				get;
-				set;
+				private set;
 			}
 
 			public Vector2(double x = 0, double y = 0)
@@ -107,7 +112,7 @@ namespace Robot
 
 			public static implicit operator Polar2(Vector2 v)
 			{
-				return new Polar2(Math.Sqrt(v.X * v.X + v.Y * v.Y), Math.Atan2(v.Y, v.X));
+				return new Polar2(Math.Sqrt(v.X * v.X + v.Y * v.Y), Utils.ToDegrees(Math.Atan2(v.Y, v.X)));
 			}
 
 			public static Vector2 operator *(Vector2 v, double f)
@@ -137,12 +142,17 @@ namespace Robot
 
 			public static Vector2 operator -(Vector2 v1, Vector2 v2)
 			{
-				return new Vector2(v1.X-v2.X, v2.Y-v2.Y);
+				return new Vector2(v1.X - v2.X, v2.Y - v2.Y);
 			}
 
 			public static Vector2 operator -(Vector2 v, Polar2 p)
 			{
 				return v - (Vector2)p;
+			}
+
+			public override string ToString()
+			{
+				return "[" + X + "," + Y + "]";
 			}
 		}
 	}

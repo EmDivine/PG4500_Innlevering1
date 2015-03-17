@@ -1,4 +1,5 @@
 ﻿using Robocode;
+using Robocode.Util;
 using Robot.Coordinates;
 
 namespace Robot
@@ -14,9 +15,11 @@ namespace Robot
 
 		public void Predict(Vector2 targetPosition, Polar2 targetHeading)
 		{
-			Polar2 predictedPosition = targetPosition + targetHeading;
-			_robot.Out.WriteLine("{0}\t# trying to predict opponent; angle: {1}", _robot.Time, GunBearing- predictedPosition.Angle);
-			_robot.SetTurnGunRight(GunBearing - predictedPosition.Angle);
+			Polar2 predictedPosition = targetPosition;// +targetHeading;
+			_robot.SetTurnGunRight(Utils.NormalRelativeAngleDegrees(predictedPosition.Angle + GunBearing));
+
+			_robot.Out.WriteLine("{0}\t# target position: {1}", _robot.Time, (Vector2)predictedPosition);
+
 			if (_robot.GunTurnRemaining < 5)
 			{
 				_robot.SetFire(1);
@@ -25,14 +28,23 @@ namespace Robot
 
 		public void OnScannedRobot(ScannedRobotEvent e)
 		{
-			Predict(new Polar2(e.Distance, e.Bearing - _robot.Heading), new Polar2(e.Velocity, e.Heading));
+			//Predict(new Polar2(e.Distance, e.Bearing + _robot.Heading), new Polar2(e.Velocity, e.Heading));
+			Predict(new Polar2(e.Distance, e.Bearing),new Polar2());
 		}
 
 		private double GunBearing
 		{
 			get
 			{
-				return Robocode.Util.Utils.NormalRelativeAngleDegrees(_robot.GunHeading - _robot.Heading);
+				return _robot.Heading - _robot.GunHeading;
+			}
+		}
+
+		private Vector2 RobotPosition
+		{
+			get
+			{
+				return new Vector2(_robot.X, _robot.Y);
 			}
 		}
 	}
