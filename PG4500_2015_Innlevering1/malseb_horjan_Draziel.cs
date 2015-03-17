@@ -1,17 +1,18 @@
 ﻿using Robocode;
 using Robocode.Util;
 using Robot;
+using System;
 using Robot.Coordinates;
 
 namespace PG4500_2015_Innlevering1
 {
 	public class malseb_horjan_Draziel : AdvancedRobot
 	{
-
 		private Gunner _gunner;
 		private Scout _scout;
 		private Driver _driver;
 		private StateMachine _fsm;
+		private WallAvoidance _wallAvoid;
 
 		public override void Run()
 		{
@@ -19,13 +20,31 @@ namespace PG4500_2015_Innlevering1
 			_scout = new Scout(this);
 			_driver = new Driver(this);
 			_fsm = new StateMachine(this);
-
+			//_wallAvoid = new WallAvoidance(this);
 			GameLoop();
 		}
 
 		public void GameLoop()
 		{
-				Search();
+			
+			//Search();
+			SetAhead(2000);					
+			Execute();
+			while (Time < 1000)
+			{
+				if ((Math.Min(this.X, BattleFieldWidth - this.X) < (this.Height + 30)) || (Math.Min(this.Y, BattleFieldHeight - this.Y) < (this.Height + 30)))
+				{
+					this.MaxVelocity = 0;
+					SetTurnRight(Heading - 180);
+					WaitFor(new TurnCompleteCondition(this));
+					SetAhead(2000);
+					MaxVelocity = 8;
+					WaitFor(new MoveCompleteCondition(this));
+				}
+				
+				Execute();
+			}
+			
 		}
 
 		public void Search()
