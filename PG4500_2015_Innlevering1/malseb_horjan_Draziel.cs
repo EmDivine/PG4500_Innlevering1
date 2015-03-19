@@ -26,25 +26,25 @@ namespace PG4500_2015_Innlevering1
 
 		public void GameLoop()
 		{
-			
+
 			//Search();
-			SetAhead(2000);					
+			SetAhead(2000);
 			Execute();
 			while (Time < 1000)
 			{
-				if ((Math.Min(this.X, BattleFieldWidth - this.X) < (this.Height + 30)) || (Math.Min(this.Y, BattleFieldHeight - this.Y) < (this.Height + 30)))
+				if ((Math.Min(X, BattleFieldWidth - X) < (Height + 30)) || (Math.Min(Y, BattleFieldHeight - Y) < (Height + 30)))
 				{
-					this.MaxVelocity = 0;
+					MaxVelocity = 0;
 					SetTurnRight(Heading - 180);
 					WaitFor(new TurnCompleteCondition(this));
 					SetAhead(2000);
 					MaxVelocity = 8;
 					WaitFor(new MoveCompleteCondition(this));
 				}
-				
+
 				Execute();
 			}
-			
+
 		}
 
 		public void Search()
@@ -57,7 +57,7 @@ namespace PG4500_2015_Innlevering1
 			while (_fsm.State == States.SEARCH)
 			{
 				_scout.Sweep();
-			Execute();
+				Execute();
 			}
 		}
 

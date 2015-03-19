@@ -13,12 +13,12 @@ namespace Robot
 			_robot.IsAdjustGunForRobotTurn = true;
 		}
 
-		public void Predict(Vector2 targetPosition, Polar2 targetHeading)
+		public void Predict(Vector2 targetRelativePosition, Polar2 targetHeading)
 		{
-			Polar2 predictedPosition = targetPosition;// +targetHeading;
+			Polar2 predictedPosition = targetRelativePosition;// +targetHeading;
 			_robot.SetTurnGunRight(Utils.NormalRelativeAngleDegrees(predictedPosition.Angle + GunBearing));
 
-			_robot.Out.WriteLine("{0}\t# target position: {1}", _robot.Time, (Vector2)predictedPosition);
+			_robot.Out.WriteLine("{0}\t# target position: {1}", _robot.Time, (Vector2)predictedPosition+RobotPosition);
 
 			if (_robot.GunTurnRemaining < 5)
 			{
@@ -29,7 +29,7 @@ namespace Robot
 		public void OnScannedRobot(ScannedRobotEvent e)
 		{
 			//Predict(new Polar2(e.Distance, e.Bearing + _robot.Heading), new Polar2(e.Velocity, e.Heading));
-			Predict(new Polar2(e.Distance, e.Bearing),new Polar2());
+			Predict(new Polar2(e.Distance, e.Bearing),new Polar2(e.Velocity,e.Heading));
 		}
 
 		private double GunBearing
