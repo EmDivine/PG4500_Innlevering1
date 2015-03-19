@@ -28,6 +28,7 @@ namespace Robot
 				_robot.SetTurnRadarRight(360);
 			}
 		}
+
 		private void RegisterEnemy(string name)
 		{
 			if (!_enemyNames.Contains(name))
@@ -65,6 +66,7 @@ namespace Robot
 			_robot.SetTurnRadarRight(Utils.NormalRelativeAngleDegrees(radarTurn));
 			_timeSpotted = _robot.Time;
 			_enemyPosition = findTargetPosition(e.Distance, e.Bearing);
+			_robot.DebugProperty["EnemyPosition"] = _enemyPosition;
 		}
 
 		private double RadarBearing

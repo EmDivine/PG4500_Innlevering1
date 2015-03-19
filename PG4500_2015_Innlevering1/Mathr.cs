@@ -85,9 +85,9 @@ namespace Robot
 				return (Vector2)p - v;
 			}
 
-			public override string ToString()
+			public static implicit operator string(Polar2 p)
 			{
-				return "[" + Magnitude + "," + Angle + "]";
+				return "[" + p.Magnitude + "," + p.Angle + "]";
 			}
 		}
 
@@ -150,9 +150,9 @@ namespace Robot
 				return v - (Vector2)p;
 			}
 
-			public override string ToString()
+			public static implicit operator string(Vector2 v)
 			{
-				return "[" + X + "," + Y + "]";
+				return "[" + v.X + "," + v.Y + "]";
 			}
 		}
 	}

@@ -86,5 +86,10 @@ namespace PG4500_2015_Innlevering1
 		{
 			_fsm.State = States.IDLE;
 		}
+
+		public override void OnHitByBullet(HitByBulletEvent evnt)
+		{
+			Out.WriteLine("OW!");
+		}
 	}
 }
