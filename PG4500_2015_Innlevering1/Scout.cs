@@ -1,6 +1,7 @@
 ﻿using Robocode;
 using Robocode.Util;
 using System.Collections.Generic;
+using Robot.Coordinates;
 
 namespace Robot
 {
@@ -9,6 +10,7 @@ namespace Robot
 		private AdvancedRobot _robot;
 		private long _timeSpotted;
 		private List<string> _enemyNames;
+		private Vector2 _enemyPosition;
 
 		public Scout(AdvancedRobot robot)
 		{
@@ -23,17 +25,21 @@ namespace Robot
 			_robot.Scan();
 			if (_robot.Time > _timeSpotted + 100)
 			{
-				_robot.Out.WriteLine("{0}\t# Sweeping. _timeSpotted = {1}.", _robot.Time, _timeSpotted);
 				_robot.SetTurnRadarRight(360);
 			}
 		}
-		public void RegisterEnemy(string name)
+		private void RegisterEnemy(string name)
 		{
 			if (!_enemyNames.Contains(name))
 			{
 				_enemyNames.Add(name);
 				_robot.Out.WriteLine("{1}\t# Enemy \"{0}\" spotted and registered.", name, _robot.Time);
 			}
+		}
+
+		private Vector2 findTargetPosition(double distance, double bearing)
+		{
+			return new Vector2(_robot.X, _robot.Y) + new Polar2(distance, -bearing - _robot.Heading + 90);
 		}
 
 		public void OnRobotDeath(string name)
@@ -58,6 +64,7 @@ namespace Robot
 
 			_robot.SetTurnRadarRight(Utils.NormalRelativeAngleDegrees(radarTurn));
 			_timeSpotted = _robot.Time;
+			_enemyPosition = findTargetPosition(e.Distance, e.Bearing);
 		}
 
 		private double RadarBearing

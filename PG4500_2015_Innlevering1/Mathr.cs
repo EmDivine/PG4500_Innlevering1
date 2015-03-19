@@ -87,7 +87,7 @@ namespace Robot
 
 			public override string ToString()
 			{
-				return "[" + Angle + "," + Magnitude + "]";
+				return "[" + Magnitude + "," + Angle + "]";
 			}
 		}
 

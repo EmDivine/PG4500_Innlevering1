@@ -20,14 +20,15 @@ namespace PG4500_2015_Innlevering1
 			_scout = new Scout(this);
 			_driver = new Driver(this);
 			_fsm = new StateMachine(this);
-			//_wallAvoid = new WallAvoidance(this);
+			_wallAvoid = new WallAvoidance(this);
+
 			GameLoop();
 		}
 
 		public void GameLoop()
 		{
 
-			//Search();
+			Search();
 			SetAhead(2000);
 			Execute();
 			while (Time < 1000)
@@ -63,6 +64,10 @@ namespace PG4500_2015_Innlevering1
 
 		public override void OnScannedRobot(ScannedRobotEvent e)
 		{
+			if (_fsm.State != States.ENGAGE)
+			{
+				_fsm.State = States.ENGAGE;
+			}
 			_scout.OnScannedRobot(e);
 			_gunner.OnScannedRobot(e);
 		}
