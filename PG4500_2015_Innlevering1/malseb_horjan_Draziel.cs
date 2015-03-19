@@ -14,6 +14,14 @@ namespace PG4500_2015_Innlevering1
 		private StateMachine _fsm;
 		private WallAvoidance _wallAvoid;
 
+		public Vector2 Position
+		{
+			get
+			{
+				return new Vector2(X, Y);
+			}
+		}
+
 		public override void Run()
 		{
 			_gunner = new Gunner(this);
@@ -29,6 +37,7 @@ namespace PG4500_2015_Innlevering1
 		{
 
 			Search();
+			#region Driver logic; move this.
 			SetAhead(2000);
 			Execute();
 			while (Time < 1000)
@@ -36,25 +45,23 @@ namespace PG4500_2015_Innlevering1
 				if ((Math.Min(X, BattleFieldWidth - X) < (Height + 30)) || (Math.Min(Y, BattleFieldHeight - Y) < (Height + 30)))
 				{
 					MaxVelocity = 0;
-					SetTurnRight(Heading - 180);
+					SetTurnRight(180);
+					long stopTime = Time;
 					WaitFor(new TurnCompleteCondition(this));
 					SetAhead(2000);
 					MaxVelocity = 8;
-					WaitFor(new MoveCompleteCondition(this));
+					WaitFor(new Condition(new ConditionTest((b) => { return stopTime +50< Time; })));
 				}
 
 				Execute();
 			}
-
+			#endregion
 		}
 
 		public void Search()
 		{
 			//if (no lock-on) {}
-			if (_fsm.State != States.SEARCH)
-			{
-				_fsm.State = States.SEARCH;
-			}
+			_fsm.State = States.SEARCH;
 			while (_fsm.State == States.SEARCH)
 			{
 				_scout.Sweep();
@@ -64,10 +71,7 @@ namespace PG4500_2015_Innlevering1
 
 		public override void OnScannedRobot(ScannedRobotEvent e)
 		{
-			if (_fsm.State != States.ENGAGE)
-			{
-				_fsm.State = States.ENGAGE;
-			}
+			_fsm.State = States.ENGAGE;
 			_scout.OnScannedRobot(e);
 			_gunner.OnScannedRobot(e);
 		}

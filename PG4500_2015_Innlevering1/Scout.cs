@@ -2,17 +2,31 @@
 using Robocode.Util;
 using System.Collections.Generic;
 using Robot.Coordinates;
+using PG4500_2015_Innlevering1;
 
 namespace Robot
 {
 	class Scout
 	{
-		private AdvancedRobot _robot;
+		private malseb_horjan_Draziel _robot;
 		private long _timeSpotted;
 		private List<string> _enemyNames;
 		private Vector2 _enemyPosition;
 
-		public Scout(AdvancedRobot robot)
+		public Vector2 EnemyPosition
+		{
+			get
+			{
+				return _enemyPosition;
+			}
+			private set
+			{
+				_enemyPosition = value;
+				_robot.DebugProperty["EnemyPosition"] = _enemyPosition;
+			}
+		}
+
+		public Scout(malseb_horjan_Draziel robot)
 		{
 			_robot = robot;
 			_robot.IsAdjustRadarForGunTurn = true;
@@ -40,7 +54,7 @@ namespace Robot
 
 		private Vector2 findTargetPosition(double distance, double bearing)
 		{
-			return new Vector2(_robot.X, _robot.Y) + new Polar2(distance, -bearing - _robot.Heading + 90);
+			return _robot.Position + new Polar2(distance, -bearing - _robot.Heading + 90);
 		}
 
 		public void OnRobotDeath(string name)
@@ -65,8 +79,7 @@ namespace Robot
 
 			_robot.SetTurnRadarRight(Utils.NormalRelativeAngleDegrees(radarTurn));
 			_timeSpotted = _robot.Time;
-			_enemyPosition = findTargetPosition(e.Distance, e.Bearing);
-			_robot.DebugProperty["EnemyPosition"] = _enemyPosition;
+			EnemyPosition = findTargetPosition(e.Distance, e.Bearing);
 		}
 
 		private double RadarBearing

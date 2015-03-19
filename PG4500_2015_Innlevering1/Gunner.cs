@@ -1,13 +1,14 @@
 ﻿using Robocode;
 using Robocode.Util;
 using Robot.Coordinates;
+using PG4500_2015_Innlevering1;
 
 namespace Robot
 {
 	class Gunner
 	{
-		private AdvancedRobot _robot;
-		public Gunner(AdvancedRobot robot)
+		private malseb_horjan_Draziel _robot;
+		public Gunner(malseb_horjan_Draziel robot)
 		{
 			_robot = robot;
 			_robot.IsAdjustGunForRobotTurn = true;
@@ -15,8 +16,8 @@ namespace Robot
 
 		public void Predict(Polar2 targetPosition, Polar2 targetHeading)
 		{
-			Polar2 predictedPosition = targetPosition;// +targetHeading;
-			_robot.SetTurnGunRight(Utils.NormalRelativeAngleDegrees(predictedPosition.Angle + GunBearing));
+			_robot.SetTurnGunRight(Utils.NormalRelativeAngleDegrees(targetPosition.Angle + GunBearing));
+			_robot.DebugProperty["targetAngle"] = targetHeading.Angle.ToString();
 
 			//_robot.Out.WriteLine("{0}\t# target position: {1}", _robot.Time, (Vector2)predictedPosition+RobotPosition);
 
@@ -28,8 +29,7 @@ namespace Robot
 
 		public void OnScannedRobot(ScannedRobotEvent e)
 		{
-			//Predict(new Polar2(e.Distance, e.Bearing + _robot.Heading), new Polar2(e.Velocity, e.Heading));
-			Predict(new Polar2(e.Distance, e.Bearing),new Polar2(e.Velocity,e.Heading));
+			Predict(new Polar2(e.Distance, e.Bearing), new Polar2());
 		}
 
 		private double GunBearing
@@ -40,12 +40,5 @@ namespace Robot
 			}
 		}
 
-		private Vector2 RobotPosition
-		{
-			get
-			{
-				return new Vector2(_robot.X, _robot.Y);
-			}
-		}
 	}
 }

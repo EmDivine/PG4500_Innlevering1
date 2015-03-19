@@ -33,8 +33,8 @@ namespace Robot
 				if (value != _currentState)
 				{
 					_robot.Out.WriteLine("{0}\t# Switching state from {1} to {2}.", _robot.Time, _currentState, value);
+					_currentState = value;
 				}
-				_currentState = value;
 			}
 		}
 	}
