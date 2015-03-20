@@ -3,6 +3,7 @@ using Robocode.Util;
 using Robot;
 using System;
 using Robot.Coordinates;
+using System.Collections.Generic;
 
 namespace PG4500_2015_Innlevering1
 {
@@ -29,6 +30,8 @@ namespace PG4500_2015_Innlevering1
 			_driver = new Driver(this);
 			_fsm = new StateMachine(this);
 			_wallAvoid = new WallAvoidance(this);
+			AddCustomEvent(new Condition("Near Wall", 19, (b) => _driver.NearWall));
+			AddCustomEvent(new Condition("No Target", 18, (b) => !_scout.HaveTarget));
 
 			GameLoop();
 		}
@@ -38,25 +41,25 @@ namespace PG4500_2015_Innlevering1
 			while (true)
 			{
 				_driver.Drive();
-				if (!_scout.HaveTarget)
-				{
-					Search();
-				}
+				//if (!_scout.HaveTarget)
+				//{
+				//	Search();
+				//}
 				/*else if (_scout.HaveTarget)
 				{
 					//Engange
 				}*/
-				if (_driver.NearWall)
-				{
-					_driver.Evade();
-				}
+				//if (_driver.NearWall)
+				//{
+				//	_driver.Evade();
+				//}
 				Execute();
 
 			}
-			
+
 		}
 
-		
+
 
 		public void Search()
 		{
@@ -93,6 +96,18 @@ namespace PG4500_2015_Innlevering1
 		public override void OnHitByBullet(HitByBulletEvent evnt)
 		{
 			Out.WriteLine("OW!");
+		}
+
+		public override void OnCustomEvent(CustomEvent evnt)
+		{
+			if (evnt.Condition.Name == "Near Wall")
+			{
+				_driver.Evade();
+			}
+			if (evnt.Condition.Name == "No Target")
+			{
+				_scout.Sweep();
+			}
 		}
 	}
 }

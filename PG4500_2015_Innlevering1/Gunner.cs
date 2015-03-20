@@ -38,5 +38,10 @@ namespace Robot
 			}
 		}
 
+		//TODO make this
+		private void AimAt(Polar2 target)
+		{
+
+		}
 	}
 }

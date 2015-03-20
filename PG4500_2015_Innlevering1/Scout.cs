@@ -43,11 +43,15 @@ namespace Robot
 
 		public void Sweep()
 		{
-			_robot.Scan();
 			if (_robot.Time > _timeSpotted + 100)
 			{
 				_robot.SetTurnRadarRight(360);
 			}
+			else
+			{
+				_robot.Scan();
+			}
+			//_robot.Scan();
 		}
 
 		private void RegisterEnemy(string name)
