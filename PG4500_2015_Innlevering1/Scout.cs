@@ -11,18 +11,25 @@ namespace Robot
 		private malseb_horjan_Draziel _robot;
 		private long _timeSpotted;
 		private List<string> _enemyNames;
-		private Vector2 _enemyPosition;
+		private Vector2 _targetPosition;
 
-		public Vector2 EnemyPosition
+		public Vector2 TargetPosition
 		{
 			get
 			{
-				return _enemyPosition;
+				return _targetPosition;
 			}
 			private set
 			{
-				_enemyPosition = value;
-				_robot.DebugProperty["EnemyPosition"] = _enemyPosition;
+				_targetPosition = value;
+				_robot.DebugProperty["target's position"] = _targetPosition;
+			}
+		}
+		public bool haveTarget
+		{
+			get
+			{
+				return _timeSpotted + 20 > _robot.Time;
 			}
 		}
 
@@ -79,7 +86,7 @@ namespace Robot
 
 			_robot.SetTurnRadarRight(Utils.NormalRelativeAngleDegrees(radarTurn));
 			_timeSpotted = _robot.Time;
-			EnemyPosition = findTargetPosition(e.Distance, e.Bearing);
+			TargetPosition = findTargetPosition(e.Distance, e.Bearing);
 		}
 
 		private double RadarBearing

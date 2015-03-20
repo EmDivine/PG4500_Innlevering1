@@ -50,7 +50,7 @@ namespace PG4500_2015_Innlevering1
 					WaitFor(new TurnCompleteCondition(this));
 					SetAhead(2000);
 					MaxVelocity = 8;
-					WaitFor(new Condition(new ConditionTest((b) => { return stopTime +50< Time; })));
+					WaitFor(new Condition((b) => { return stopTime +50< Time; }));
 				}
 
 				Execute();

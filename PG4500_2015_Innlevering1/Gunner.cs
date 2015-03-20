@@ -19,8 +19,6 @@ namespace Robot
 			_robot.SetTurnGunRight(Utils.NormalRelativeAngleDegrees(targetPosition.Angle + GunBearing));
 			_robot.DebugProperty["targetAngle"] = targetHeading.Angle.ToString();
 
-			//_robot.Out.WriteLine("{0}\t# target position: {1}", _robot.Time, (Vector2)predictedPosition+RobotPosition);
-
 			if (System.Math.Abs(_robot.GunTurnRemaining) < 5)
 			{
 				_robot.SetFire(1);
