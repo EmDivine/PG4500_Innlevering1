@@ -29,7 +29,7 @@ namespace Robot
 		{
 			get
 			{
-				return _timeSpotted + 20 > _robot.Time;
+				return _timeSpotted + 10 > _robot.Time;
 			}
 		}
 
