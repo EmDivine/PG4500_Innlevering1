@@ -37,9 +37,22 @@ namespace PG4500_2015_Innlevering1
 		{
 			while (true)
 			{
+				_driver.Drive();
+				if (!_scout.HaveTarget)
+				{
+					Search();
+				}
+				/*else if (_scout.HaveTarget)
+				{
+					//Engange
+				}*/
+				if (_driver.NearWall)
+				{
+					_driver.Evade();
+				}
+				Execute();
 
 			}
-			Search();
 			
 		}
 
@@ -47,7 +60,6 @@ namespace PG4500_2015_Innlevering1
 
 		public void Search()
 		{
-			//if (no lock-on) {}
 			_fsm.State = States.SEARCH;
 			while (_fsm.State == States.SEARCH)
 			{

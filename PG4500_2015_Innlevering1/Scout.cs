@@ -25,7 +25,7 @@ namespace Robot
 				_robot.DebugProperty["target's position"] = _targetPosition;
 			}
 		}
-		public bool haveTarget
+		public bool HaveTarget
 		{
 			get
 			{
