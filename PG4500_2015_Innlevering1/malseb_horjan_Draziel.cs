@@ -35,28 +35,15 @@ namespace PG4500_2015_Innlevering1
 
 		public void GameLoop()
 		{
-
-			Search();
-			#region Driver logic; move this.
-			SetAhead(2000);
-			Execute();
-			while (Time < 1000)
+			while (true)
 			{
-				if ((Math.Min(X, BattleFieldWidth - X) < (Height + 30)) || (Math.Min(Y, BattleFieldHeight - Y) < (Height + 30)))
-				{
-					MaxVelocity = 0;
-					SetTurnRight(180);
-					long stopTime = Time;
-					WaitFor(new TurnCompleteCondition(this));
-					SetAhead(2000);
-					MaxVelocity = 8;
-					WaitFor(new Condition(new ConditionTest((b) => { return stopTime +50< Time; })));
-				}
 
-				Execute();
 			}
-			#endregion
+			Search();
+			
 		}
+
+		
 
 		public void Search()
 		{
