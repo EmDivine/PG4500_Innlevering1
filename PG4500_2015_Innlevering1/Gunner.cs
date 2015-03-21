@@ -17,7 +17,7 @@ namespace Robot
 		public void Predict(Polar2 targetPosition, Polar2 targetHeading)
 		{
 			//_robot.SetTurnGunRight(Utils.NormalRelativeAngleDegrees(targetPosition.Angle - GunBearing));
-			AimAt(targetPosition + targetHeading * ((targetPosition+targetHeading).Magnitude/Rules.GetBulletSpeed(1)));
+			AimAt(targetPosition + targetHeading * (targetPosition.Magnitude/Rules.GetBulletSpeed(1)));
 		}
 
 		public void OnScannedRobot(ScannedRobotEvent e)
