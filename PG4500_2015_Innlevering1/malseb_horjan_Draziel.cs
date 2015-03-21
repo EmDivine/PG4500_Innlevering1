@@ -32,6 +32,7 @@ namespace PG4500_2015_Innlevering1
 			_wallAvoid = new WallAvoidance(this);
 			AddCustomEvent(new Condition("Near Wall", 19, (b) => _driver.NearWall));
 			AddCustomEvent(new Condition("No Target", 18, (b) => !_scout.HaveTarget));
+			AddCustomEvent(new Condition("Ready to fire", 50, (b) => Math.Abs(GunTurnRemaining) < 2));
 
 			GameLoop();
 		}
@@ -107,6 +108,11 @@ namespace PG4500_2015_Innlevering1
 			if (evnt.Condition.Name == "No Target")
 			{
 				_scout.Sweep();
+			}
+			// else as replacement for nested ifs, will only fire if I have a valid target.
+			else if (evnt.Condition.Name == "Ready to fire")
+			{
+				SetFire(1);
 			}
 		}
 	}

@@ -69,10 +69,6 @@ namespace Robot
 			{
 				return p * f;
 			}
-			public static Polar2 operator -(Polar2 p)
-			{
-				return new Polar2(-p.Magnitude, p.Angle);
-			}
 			public static Polar2 operator -(Polar2 p1, Polar2 p2)
 			{
 				return (Vector2)p1 - (Vector2)p2;
@@ -80,6 +76,10 @@ namespace Robot
 			public static Polar2 operator -(Polar2 p, Vector2 v)
 			{
 				return (Vector2)p - v;
+			}
+			public static Polar2 operator -(Polar2 p)
+			{
+				return new Polar2(-p.Magnitude, p.Angle);
 			}
 		}
 
@@ -110,14 +110,6 @@ namespace Robot
 			{
 				return "[" + v.X + "," + v.Y + "]";
 			}
-			public static Vector2 operator *(Vector2 v, double f)
-			{
-				return new Vector2(v.X * f, v.Y * f);
-			}
-			public static Vector2 operator *(double f, Vector2 v)
-			{
-				return v * f;
-			}
 			public static Vector2 operator +(Vector2 v1, Vector2 v2)
 			{
 				return new Vector2(v1.X + v2.X, v1.Y + v2.Y);
@@ -126,9 +118,13 @@ namespace Robot
 			{
 				return v + (Vector2)p;
 			}
-			public static Vector2 operator -(Vector2 v)
+			public static Vector2 operator *(Vector2 v, double f)
 			{
-				return new Vector2(-v.X, -v.Y);
+				return new Vector2(v.X * f, v.Y * f);
+			}
+			public static Vector2 operator *(double f, Vector2 v)
+			{
+				return v * f;
 			}
 			public static Vector2 operator -(Vector2 v1, Vector2 v2)
 			{
@@ -137,6 +133,10 @@ namespace Robot
 			public static Vector2 operator -(Vector2 v, Polar2 p)
 			{
 				return v - (Vector2)p;
+			}
+			public static Vector2 operator -(Vector2 v)
+			{
+				return new Vector2(-v.X, -v.Y);
 			}
 		}
 	}
