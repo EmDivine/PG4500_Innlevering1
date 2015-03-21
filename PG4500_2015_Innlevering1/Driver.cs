@@ -7,10 +7,16 @@ namespace Robot
 	class Driver
 	{
 		private malseb_horjan_Draziel _robot;
+        private Scout _scout;
+        private double _minDist;
+        private double _enemyHeading;
+        private double _enemyBearing;
+        
 		public Driver(malseb_horjan_Draziel robot)
 		{
 			_robot = robot;
-		}
+		    _minDist = _robot.Height + 5;
+        }
 
 		public void Drive()
 		{
@@ -18,27 +24,60 @@ namespace Robot
 			_robot.Execute();
 		}
 
-		public void Evade()
+		public void Evade(string type)
 		{
-			//_robot.Out.WriteLine("{0}\t# Heading towards wall. Turning around to avoid collision.", _robot.Time);
-			//// If robot is close to a wall, it stops, turns around (not smart, should be fixed), sets new couse (straight ahead) and 
-			//_robot.SetStop(true);
-			//_robot.SetTurnRight(180);
-			//long stopTime = _robot.Time;
-			//_robot.Out.WriteLine("{0}\t# Timer set.", _robot.Time);
-			//_robot.WaitFor(new TurnCompleteCondition(_robot));
-			//_robot.SetResume();
-			//_robot.WaitFor(new Condition("Turn timer", 1, (b) => { return stopTime + 50 < _robot.Time; }));
-			//_robot.Execute();
+            if (type.Equals("Wall"))
+            {
+                //_robot.Out.WriteLine("{0}\t# Heading towards a wall. Turning around to avoid collision.", _robot.Time);
+                // If robot is close to a wall, it stops, turns around (not smart, should be fixed), sets new couse (straight ahead) and 
+                //_robot.SetStop(true);
+                //_robot.SetTurnRight(180);
+                //long stopTime = _robot.Time;
+                //_robot.Out.WriteLine("{0}\t# Timer set.", _robot.Time);
+                _robot.MaxVelocity = 5;
+                _robot.Execute();
+                _robot.SetTurnRight(_robot.Heading - 45);
+                Drive();
+                _robot.Execute();
+                _robot.MaxVelocity = 8;
+                //_robot.WaitFor(new TurnCompleteCondition(_robot));
+                _robot.Execute();
+                //Retreating a safe distance before doing anything else.
+                //_robot.WaitFor(new MoveCompleteCondition(_robot, 21));
+               
+            }
+            else if (type.Equals("Bot"))
+            {
+                //_robot.Out.WriteLine("{0}\t# Woah there! Too close to a different robot. Backing away to avoid damage.", _robot.Time);
+                _robot.SetTurnRight(_enemyBearing + 90);
+                _robot.SetAhead(500);
+                _robot.Execute();
+            }
+			
+			
 		}
+
+        public void OnScannedRobot(ScannedRobotEvent e)
+        {
+            _enemyBearing = e.Bearing;
+            _enemyHeading = e.Heading;
+        }
 
 		public bool NearWall
 		{
 			get
 			{
-				return (((Math.Min(_robot.X, _robot.BattleFieldWidth - _robot.X) < (_robot.Height + 30)) || (Math.Min(_robot.Y, _robot.BattleFieldHeight - _robot.Y) < (_robot.Height + 30))));
+				return ((Math.Min(_robot.X, _robot.BattleFieldWidth - _robot.X) < (_minDist + 45)) || (Math.Min(_robot.Y, _robot.BattleFieldHeight - _robot.Y) < (_minDist + 45)));
 			}
 		}
+
+        public bool NearBot
+        {
+            get
+            {
+                return ((Math.Min(_robot.X, _scout.TargetPosition.X - _robot.X) < (_minDist + 50)) || (Math.Min(_robot.Y, _scout.TargetPosition.Y - _robot.Y) < (_minDist + 50)));
+            }
+        }
 
 
 

@@ -33,6 +33,7 @@ namespace PG4500_2015_Innlevering1
 			AddCustomEvent(new Condition("Near Wall", 19, (b) => _driver.NearWall));
 			AddCustomEvent(new Condition("No Target", 18, (b) => !_scout.HaveTarget));
 			AddCustomEvent(new Condition("Ready to fire", 50, (b) => Math.Abs(GunTurnRemaining) < 2));
+           // AddCustomEvent(new Condition("Near Bot", 20, (b) => _driver.NearBot));
 
 			GameLoop();
 		}
@@ -103,8 +104,13 @@ namespace PG4500_2015_Innlevering1
 		{
 			if (evnt.Condition.Name == "Near Wall")
 			{
-				_driver.Evade();
+				_driver.Evade("Wall");
+
 			}
+            if (evnt.Condition.Name == "Near Bot")
+            {
+                _driver.Evade("Bot");
+            }
 			if (evnt.Condition.Name == "No Target")
 			{
 				_scout.Sweep();
