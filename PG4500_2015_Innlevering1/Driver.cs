@@ -4,47 +4,39 @@ using System;
 
 namespace Robot
 {
-	class Driver
-	{
-		private malseb_horjan_Draziel _robot;
+    class Driver
+    {
+        private malseb_horjan_Draziel _robot;
         private Scout _scout;
         private double _minDist;
         private double _enemyHeading;
         private double _enemyBearing;
-        
-		public Driver(malseb_horjan_Draziel robot)
-		{
-			_robot = robot;
-		    _minDist = _robot.Height + 5;
+
+        public Driver(malseb_horjan_Draziel robot)
+        {
+            _robot = robot;
+            _minDist = _robot.Height;
         }
 
-		public void Drive()
-		{
-			_robot.SetAhead(200);
-			//_robot.Execute();
-		}
+        public void Drive()
+        {
+            _robot.SetAhead(200);
+            //_robot.Execute();
+        }
 
-		public void Evade(string type)
-		{
+        public void Evade(string type)
+        {
             if (type.Equals("Wall"))
             {
-                //_robot.Out.WriteLine("{0}\t# Heading towards a wall. Turning around to avoid collision.", _robot.Time);
-                // If robot is close to a wall, it stops, turns around (not smart, should be fixed), sets new couse (straight ahead) and 
-                //_robot.SetStop(true);
-                //_robot.SetTurnRight(180);
-                //long stopTime = _robot.Time;
-                //_robot.Out.WriteLine("{0}\t# Timer set.", _robot.Time);
-                _robot.MaxVelocity = 5;
-				//_robot.Execute();
-                _robot.SetTurnRight(_robot.Heading - 45);
+                // If robot is close to a wall, it slows down, turns around (not smart, should be fixed), sets new couse (straight ahead) and 
+                _robot.MaxVelocity = 4;
+                _robot.Execute();
+                _robot.SetTurnRight(WallSide());
                 Drive();
-				//_robot.Execute();
+                //_robot.Execute();
                 _robot.MaxVelocity = 8;
-                //_robot.WaitFor(new TurnCompleteCondition(_robot));
-				//_robot.Execute();
-                //Retreating a safe distance before doing anything else.
-                //_robot.WaitFor(new MoveCompleteCondition(_robot, 21));
-               
+                //_robot.Execute();
+
             }
             else if (type.Equals("Bot"))
             {
@@ -53,9 +45,54 @@ namespace Robot
                 _robot.SetAhead(500);
                 _robot.Execute();
             }
-			
-			
-		}
+
+            
+        }
+
+        /*
+         * This will calculate what angle to turn based on where you are and where you are headed. 
+         * Not 100% complete... needs exceptions for corners and testing whether the degrees are correct.
+         */
+        public double WallSide()
+        {
+            double value = 90;
+            if (Math.Min(_robot.X, _robot.BattleFieldWidth - _robot.X) < (_minDist + 20))
+            {
+                if (_robot.X <= _minDist)
+                {
+                    if (_robot.Heading >= 225 && _robot.Heading <= 270)
+                        value = -90;
+                    else if (_robot.Heading >= 270 && _robot.Heading <= 315)
+                        value = 90;
+                }
+                else if (_robot.X > _minDist)
+                {
+                    if (_robot.Heading >= 45 && _robot.Heading <= 90)
+                        value = -90;
+                    else if (_robot.Heading >= 90 && _robot.Heading <= 135)
+                        value = 90;
+                }
+            }
+            else if (Math.Min(_robot.Y, _robot.BattleFieldHeight - _robot.Y) < (_minDist + 20))
+            {
+                if (_robot.Y <= _minDist)
+                {
+                    if (_robot.Heading <= 225 && _robot.Heading >= 360)
+                        value = -90;
+                    else if (_robot.Heading >= 180 && _robot.Heading <= 135)
+                        value = -90;
+                }
+                else if (_robot.Y > _minDist)
+                {
+                    if (_robot.Heading >= 225 && _robot.Heading <= 180)
+                        value = 90;
+                    else if (_robot.Heading >= 0 && _robot.Heading <= 90)
+                        value = 90;  
+                }
+            }
+            return value; // Returns 90 degrees by default.
+        }
+
 
         public void OnScannedRobot(ScannedRobotEvent e)
         {
@@ -63,13 +100,14 @@ namespace Robot
             _enemyHeading = e.Heading;
         }
 
-		public bool NearWall
-		{
-			get
-			{
-				return ((Math.Min(_robot.X, _robot.BattleFieldWidth - _robot.X) < (_minDist + 45)) || (Math.Min(_robot.Y, _robot.BattleFieldHeight - _robot.Y) < (_minDist + 45)));
-			}
-		}
+
+        public bool NearWall
+        {
+            get
+            {
+                return ((Math.Min(_robot.X, _robot.BattleFieldWidth - _robot.X) < (_minDist + 20)) || (Math.Min(_robot.Y, _robot.BattleFieldHeight - _robot.Y) < (_minDist + 20)));
+            }
+        }
 
         public bool NearBot
         {
@@ -83,7 +121,7 @@ namespace Robot
 
 
 
-	}
+    }
 
 
 
