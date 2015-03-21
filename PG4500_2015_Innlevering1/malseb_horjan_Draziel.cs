@@ -82,7 +82,8 @@ namespace PG4500_2015_Innlevering1
 		{
 			_fsm.State = States.ENGAGE;
 			_scout.OnScannedRobot(e);
-			_gunner.OnScannedRobot(e);
+			//_gunner.OnScannedRobot(e);
+			_gunner.Predict(_scout.TargetPosition, new Polar2(e.Velocity, e.Heading));
 		}
 
 		public override void OnRobotDeath(RobotDeathEvent e)

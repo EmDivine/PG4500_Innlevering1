@@ -16,13 +16,13 @@ namespace Robot
 
 		public void Predict(Polar2 targetPosition, Polar2 targetHeading)
 		{
-			_robot.SetTurnGunRight(Utils.NormalRelativeAngleDegrees(targetPosition.Angle - GunBearing));
-			//AimAt(targetPosition);
+			//_robot.SetTurnGunRight(Utils.NormalRelativeAngleDegrees(targetPosition.Angle - GunBearing));
+			AimAt(targetPosition + targetHeading * ((targetPosition+targetHeading).Magnitude/Rules.GetBulletSpeed(1)));
 		}
 
 		public void OnScannedRobot(ScannedRobotEvent e)
 		{
-			Predict(new Polar2(e.Distance, e.Bearing), new Polar2(e.Distance, e.Heading));
+			Predict(new Polar2(e.Distance, e.Bearing), new Polar2(e.Velocity, e.Heading));
 		}
 
 		private double GunBearing
@@ -37,8 +37,7 @@ namespace Robot
 		private void AimAt(Vector2 targetPosition)
 		{
 			Polar2 targetRelativePosition = targetPosition - _robot.Position;
-			_robot.DebugProperty["targetAngle"] = targetRelativePosition.Angle.ToString();
-			_robot.SetTurnGunRight(Utils.NormalRelativeAngleDegrees(targetRelativePosition.Angle - _robot.GunHeading));
+			_robot.SetTurnGunRight(Utils.NormalRelativeAngleDegrees(90 - targetRelativePosition.Angle - _robot.GunHeading));
 		}
 	}
 }
