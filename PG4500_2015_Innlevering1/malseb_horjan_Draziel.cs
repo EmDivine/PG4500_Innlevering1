@@ -33,6 +33,7 @@ namespace PG4500_2015_Innlevering1
 			AddCustomEvent(new Condition("Near Wall", 19, (b) => _driver.NearWall));
 			AddCustomEvent(new Condition("No Target", 19, (b) => !_scout.HaveTarget));
 			AddCustomEvent(new Condition("Ready to fire", 50, (b) => Math.Abs(GunTurnRemaining) < 2));
+			AddCustomEvent(new Condition("Turn complete", 50, (b) => new TurnCompleteCondition(this).Test()));
 			// AddCustomEvent(new Condition("Near Bot", 20, (b) => _driver.NearBot));
 
 			GameLoop();
@@ -128,6 +129,10 @@ namespace PG4500_2015_Innlevering1
 					//DebugProperty["Ready to fire"] = (Math.Abs(GunTurnRemaining) < 2).ToString();
 					SetFire(1);
 				}
+			}
+			if (evnt.Condition.Name == "Turn complete")
+			{
+				MaxVelocity = 8;
 			}
 		}
 	}

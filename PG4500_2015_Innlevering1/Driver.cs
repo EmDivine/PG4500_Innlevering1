@@ -7,7 +7,7 @@ namespace Robot
     class Driver
     {
         private malseb_horjan_Draziel _robot;
-        private Scout _scout;
+		private Scout _scout;
         private double _minDist;
         private double _enemyHeading;
         private double _enemyBearing;
@@ -30,11 +30,11 @@ namespace Robot
             {
                 // If robot is close to a wall, it slows down, turns around (not smart, should be fixed), sets new couse (straight ahead) and 
                 _robot.MaxVelocity = 4;
-                _robot.Execute();
                 _robot.SetTurnRight(WallSide());
+				//_robot.WaitFor(new TurnCompleteCondition(_robot));
                 Drive();
                 //_robot.Execute();
-                _robot.MaxVelocity = 8;
+				//_robot.MaxVelocity = 8;
                 //_robot.Execute();
 
             }
@@ -43,16 +43,17 @@ namespace Robot
                 //_robot.Out.WriteLine("{0}\t# Woah there! Too close to a different robot. Backing away to avoid damage.", _robot.Time);
                 _robot.SetTurnRight(_enemyBearing + 90);
                 _robot.SetAhead(500);
-                _robot.Execute();
+				//_robot.Execute();
             }
 
             
         }
 
-        /*
-         * This will calculate what angle to turn based on where you are and where you are headed. 
-         * Not 100% complete... needs exceptions for corners and testing whether the degrees are correct.
-         */
+		/// <summary>
+		/// This will calculate what angle to turn based on where you are and where you are headed. 
+		/// Not 100% complete... needs exceptions for corners and testing whether the degrees are correct.
+		/// </summary>
+		/// <returns></returns>
         public double WallSide()
         {
             double value = 90;
