@@ -29,7 +29,7 @@ namespace Robot
             if (type.Equals("Wall"))
             {
                 // If robot is close to a wall, it slows down, turns around (not smart, should be fixed), sets new couse (straight ahead) and 
-                _robot.MaxVelocity = 4;
+                _robot.MaxVelocity = 5;
                 _robot.SetTurnRight(WallSide());
 				//_robot.WaitFor(new TurnCompleteCondition(_robot));
                 Drive();
@@ -61,33 +61,33 @@ namespace Robot
             {
                 if (_robot.X <= _minDist)
                 {
-                    if (_robot.Heading >= 225 && _robot.Heading <= 270)
+                    if (_robot.Heading >= 225 && _robot.Heading <= 315)
                         value = -90;
-                    else if (_robot.Heading >= 270 && _robot.Heading <= 315)
+                    else if (_robot.Heading >= 225 && _robot.Heading <= 270)
                         value = 90;
                 }
                 else if (_robot.X > _minDist)
                 {
                     if (_robot.Heading >= 45 && _robot.Heading <= 90)
-                        value = -90;
-                    else if (_robot.Heading >= 90 && _robot.Heading <= 135)
                         value = 90;
+                    else if (_robot.Heading >= 90 && _robot.Heading <= 135)
+                        value = -90;
                 }
             }
             else if (Math.Min(_robot.Y, _robot.BattleFieldHeight - _robot.Y) < (_minDist + 20))
             {
                 if (_robot.Y <= _minDist)
                 {
-                    if (_robot.Heading <= 225 && _robot.Heading >= 360)
-                        value = -90;
+                    if (_robot.Heading <= 225 && _robot.Heading >= 180)
+                        value = 90;
                     else if (_robot.Heading >= 180 && _robot.Heading <= 135)
                         value = -90;
                 }
                 else if (_robot.Y > _minDist)
                 {
-                    if (_robot.Heading >= 225 && _robot.Heading <= 180)
-                        value = 90;
-                    else if (_robot.Heading >= 0 && _robot.Heading <= 90)
+                    if (_robot.Heading >= 315 && _robot.Heading <= 360)
+                        value = -90;
+                    else if (_robot.Heading >= 0 && _robot.Heading <= 45)
                         value = 90;  
                 }
             }
