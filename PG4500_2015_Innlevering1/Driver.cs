@@ -21,7 +21,7 @@ namespace Robot
 		public void Drive()
 		{
 			_robot.SetAhead(200);
-			_robot.Execute();
+			//_robot.Execute();
 		}
 
 		public void Evade(string type)
@@ -35,13 +35,13 @@ namespace Robot
                 //long stopTime = _robot.Time;
                 //_robot.Out.WriteLine("{0}\t# Timer set.", _robot.Time);
                 _robot.MaxVelocity = 5;
-                _robot.Execute();
+				//_robot.Execute();
                 _robot.SetTurnRight(_robot.Heading - 45);
                 Drive();
-                _robot.Execute();
+				//_robot.Execute();
                 _robot.MaxVelocity = 8;
                 //_robot.WaitFor(new TurnCompleteCondition(_robot));
-                _robot.Execute();
+				//_robot.Execute();
                 //Retreating a safe distance before doing anything else.
                 //_robot.WaitFor(new MoveCompleteCondition(_robot, 21));
                

@@ -31,9 +31,9 @@ namespace PG4500_2015_Innlevering1
 			_fsm = new StateMachine(this);
 			_wallAvoid = new WallAvoidance(this);
 			AddCustomEvent(new Condition("Near Wall", 19, (b) => _driver.NearWall));
-			AddCustomEvent(new Condition("No Target", 18, (b) => !_scout.HaveTarget));
+			AddCustomEvent(new Condition("No Target", 19, (b) => !_scout.HaveTarget));
 			AddCustomEvent(new Condition("Ready to fire", 50, (b) => Math.Abs(GunTurnRemaining) < 2));
-           // AddCustomEvent(new Condition("Near Bot", 20, (b) => _driver.NearBot));
+			// AddCustomEvent(new Condition("Near Bot", 20, (b) => _driver.NearBot));
 
 			GameLoop();
 		}
@@ -43,6 +43,10 @@ namespace PG4500_2015_Innlevering1
 			while (true)
 			{
 				_driver.Drive();
+				DebugProperty["Near Wall"] = _driver.NearWall.ToString();
+				DebugProperty["No Target"] = (!_scout.HaveTarget).ToString();
+				DebugProperty["Ready to fire"] = (Math.Abs(GunTurnRemaining) < 2).ToString();
+
 				//if (!_scout.HaveTarget)
 				//{
 				//	Search();
@@ -104,21 +108,26 @@ namespace PG4500_2015_Innlevering1
 		{
 			if (evnt.Condition.Name == "Near Wall")
 			{
+				//DebugProperty["Near Wall"] = _driver.NearWall.ToString();
 				_driver.Evade("Wall");
 
 			}
-            if (evnt.Condition.Name == "Near Bot")
-            {
-                _driver.Evade("Bot");
-            }
+			if (evnt.Condition.Name == "Near Bot")
+			{
+				_driver.Evade("Bot");
+			}
 			if (evnt.Condition.Name == "No Target")
 			{
+				//DebugProperty["No Target"] = (!_scout.HaveTarget).ToString();
 				_scout.Sweep();
 			}
-			// else as replacement for nested ifs, will only fire if I have a valid target.
-			else if (evnt.Condition.Name == "Ready to fire")
+			if (evnt.Condition.Name == "Ready to fire")
 			{
-				SetFire(1);
+				if (_scout.HaveTarget)
+				{
+					//DebugProperty["Ready to fire"] = (Math.Abs(GunTurnRemaining) < 2).ToString();
+					SetFire(1);
+				}
 			}
 		}
 	}

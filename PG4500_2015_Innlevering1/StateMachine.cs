@@ -1,5 +1,6 @@
 ﻿using System;
 using Robocode;
+using PG4500_2015_Innlevering1;
 
 namespace Robot
 {
@@ -14,9 +15,9 @@ namespace Robot
 	public class StateMachine
 	{
 		private States _currentState;
-		private AdvancedRobot _robot;
+		private malseb_horjan_Draziel _robot;
 
-		public StateMachine(AdvancedRobot robot, States state = States.IDLE)
+		public StateMachine(malseb_horjan_Draziel robot, States state = States.IDLE)
 		{
 			_robot = robot;
 			State = state;
