@@ -44,6 +44,10 @@ namespace PG4500_2015_Innlevering1
 			while (true)
 			{
 				_driver.Drive();
+                if (Velocity <= 1)
+                {
+                    SetTurnRight(180);
+                }
 				DebugProperty["Near Wall"] = _driver.NearWall.ToString();
 				DebugProperty["No Target"] = (!_scout.HaveTarget).ToString();
 				DebugProperty["Ready to fire"] = (Math.Abs(GunTurnRemaining) < 2).ToString();
