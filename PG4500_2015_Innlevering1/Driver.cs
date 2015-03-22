@@ -6,8 +6,8 @@ namespace Robot
 {
     class Driver
     {
-		//not in use, placeholder for code in development.
-		private Scout _scout;
+        //not in use, placeholder for code in development.
+        private Scout _scout;
 
         private malseb_horjan_Draziel _robot;
         private double _minDist;
@@ -33,21 +33,21 @@ namespace Robot
                 _robot.SetTurnRight(WallSide());
 
             }
-				//evade bot not yet active.
+            //evade bot not yet active.
             else if (type.Equals("Bot"))
             {
                 _robot.SetTurnRight(_enemyBearing + 90);
                 _robot.SetAhead(500);
             }
 
-            
+
         }
 
-		/// <summary>
-		/// This will calculate what angle to turn based on where you are and where you are headed. 
-		/// Not 100% complete... needs exceptions for corners and testing whether the degrees are correct.
-		/// </summary>
-		/// <returns></returns>
+        /// <summary>
+        /// This will calculate what angle to turn based on where you are and where you are headed. 
+        /// Not 100% complete... needs exceptions for corners and testing whether the degrees are correct.
+        /// </summary>
+        /// <returns></returns>
         public double WallSide()
         {
             double value = 90;
@@ -82,7 +82,7 @@ namespace Robot
                     if (_robot.Heading >= 315 && _robot.Heading <= 360)
                         value = -90;
                     else if (_robot.Heading >= 0 && _robot.Heading <= 45)
-                        value = 90;  
+                        value = 90;
                 }
             }
             return value; // Returns 90 degrees by default.
@@ -94,7 +94,6 @@ namespace Robot
             _enemyBearing = e.Bearing;
             _enemyHeading = e.Heading;
         }
-
 
         public bool NearWall
         {

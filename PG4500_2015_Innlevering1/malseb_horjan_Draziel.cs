@@ -28,7 +28,8 @@ namespace PG4500_2015_Innlevering1
 			AddCustomEvent(new Condition("No target", 19, (b) => !_scout.HaveTarget));
 			AddCustomEvent(new Condition("Ready to fire", 50, (b) => Math.Abs(GunTurnRemaining) < 2));
 			AddCustomEvent(new Condition("Turn complete", 50, (b) => new TurnCompleteCondition(this).Test()));
-			//to be implemented
+			AddCustomEvent(new Condition("Has Stopped", 19, (b) => Velocity <= 1));
+            //to be implemented
 			// AddCustomEvent(new Condition("Near Bot", 20, (b) => _driver.NearBot));
 
 			GameLoop();
@@ -38,12 +39,6 @@ namespace PG4500_2015_Innlevering1
 		{
 			while (true)
 			{
-				#region horjan, move this please.
-				if (Velocity <= 1)
-				{
-					SetTurnRight(180);
-				}
-				#endregion
 				_driver.Drive();
 				Execute();
 			}
@@ -97,6 +92,10 @@ namespace PG4500_2015_Innlevering1
 			{
 				MaxVelocity = 8;
 			}
+            if (evnt.Condition.Name == "Has Stopped")
+            {
+                SetTurnRight(180);
+            }
 		}
 	}
 }
