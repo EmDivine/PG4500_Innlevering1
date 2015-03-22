@@ -55,11 +55,6 @@ namespace PG4500_2015_Innlevering1
 			_scout.OnRobotDeath(e.Name);
 		}
 
-		public override void OnHitRobot(HitRobotEvent evnt)
-		{
-			SetTurnRight(180);
-		}
-
 		public override void OnDeath(DeathEvent e)
 		{
 			Out.WriteLine("{0}\t# ALL SYSTEMS DOWN! I REPEAT, ALL SYSTE...", Time);
