@@ -1,8 +1,8 @@
-﻿using Robocode;
+﻿using PG4500_2015_Innlevering1;
+using Robocode;
 using Robocode.Util;
-using System.Collections.Generic;
 using Robot.Coordinates;
-using PG4500_2015_Innlevering1;
+using System.Collections.Generic;
 
 namespace Robot
 {

@@ -77,6 +77,7 @@ namespace PG4500_2015_Innlevering1
 				_driver.Evade("Wall");
 
 			}
+			//to be implemented
 			if (evnt.Condition.Name == "Near Bot")
 			{
 				_driver.Evade("Bot");

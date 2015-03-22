@@ -1,7 +1,7 @@
-﻿using Robocode;
+﻿using PG4500_2015_Innlevering1;
+using Robocode;
 using Robocode.Util;
 using Robot.Coordinates;
-using PG4500_2015_Innlevering1;
 
 namespace Robot
 {
@@ -17,14 +17,6 @@ namespace Robot
 		public void onScannedRobot(Polar2 targetPosition, Polar2 targetHeading)
 		{
 			AimAt(targetPosition + targetHeading * (targetPosition.Magnitude / Rules.GetBulletSpeed(1)));
-		}
-
-		private double GunBearing
-		{
-			get
-			{
-				return _robot.GunHeading - _robot.Heading;
-			}
 		}
 
 		private void AimAt(Vector2 targetPosition)
