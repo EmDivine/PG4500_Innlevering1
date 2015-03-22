@@ -1,7 +1,7 @@
 ﻿using Robocode.Util;
 using System;
 
-namespace Robot
+namespace Draziel
 {
 	namespace Coordinates
 	{

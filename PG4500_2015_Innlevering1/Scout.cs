@@ -1,10 +1,10 @@
 ﻿using PG4500_2015_Innlevering1;
 using Robocode;
 using Robocode.Util;
-using Robot.Coordinates;
+using Draziel.Coordinates;
 using System.Collections.Generic;
 
-namespace Robot
+namespace Draziel
 {
 	class Scout
 	{

@@ -1,6 +1,6 @@
 ﻿using Robocode;
-using Robot;
-using Robot.Coordinates;
+using Draziel;
+using Draziel.Coordinates;
 using System;
 
 namespace PG4500_2015_Innlevering1

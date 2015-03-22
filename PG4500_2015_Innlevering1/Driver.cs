@@ -2,7 +2,7 @@
 using Robocode;
 using System;
 
-namespace Robot
+namespace Draziel
 {
     class Driver
     {
