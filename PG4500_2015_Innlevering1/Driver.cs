@@ -44,7 +44,7 @@ namespace Draziel
         }
 
         /// <summary>
-        /// This will calculate what angle to turn based on where you are and where you are headed. 
+        /// This will set what angle to turn based on where you are and where you are headed. 
         /// Not 100% complete... needs exceptions for corners and testing whether the degrees are correct.
         /// </summary>
         /// <returns></returns>
@@ -55,17 +55,35 @@ namespace Draziel
             {
                 if (_robot.X <= _minDist)
                 {
-                    if (_robot.Heading >= 225 && _robot.Heading <= 315)
-                        value = -90;
-                    else if (_robot.Heading >= 225 && _robot.Heading <= 270)
+                    #region FacingWall
+                    if (_robot.Heading >= 225 && _robot.Heading <= 270)
                         value = 90;
+                    else if (_robot.Heading >= 270 && _robot.Heading <= 315)
+                        value = 90;
+                    else if (_robot.Heading >= 180 && _robot.Heading <= 225)
+                        value = -90;
+                    else if (_robot.Heading >= 315 && _robot.Heading <= 360)
+                        value = 90;
+                    #endregion FacingWall
+                    #region FacingAwayFromWall
+                    if (_robot.Heading >= 45 && _robot.Heading <= 135)
+                        value = 0;
+                    #endregion FacingAwayFromWall
                 }
                 else if (_robot.X > _minDist)
                 {
                     if (_robot.Heading >= 45 && _robot.Heading <= 90)
-                        value = 90;
-                    else if (_robot.Heading >= 90 && _robot.Heading <= 135)
                         value = -90;
+                    else if (_robot.Heading >= 90 && _robot.Heading <= 135)
+                        value = 90;
+                    else if (_robot.Heading >= 0 && _robot.Heading <= 45)
+                        value = -90;
+                    else if (_robot.Heading >= 135 && _robot.Heading <= 180)
+                        value = 90;
+                    #region FacingAwayFromWall
+                    if (_robot.Heading >= 225 && _robot.Heading <= 315)
+                        value = 0;
+                    #endregion FacingAwayFromWall
                 }
             }
             else if (Math.Min(_robot.Y, _robot.BattleFieldHeight - _robot.Y) < (_minDist + 20))
@@ -73,16 +91,32 @@ namespace Draziel
                 if (_robot.Y <= _minDist)
                 {
                     if (_robot.Heading <= 225 && _robot.Heading >= 180)
-                        value = 90;
-                    else if (_robot.Heading >= 180 && _robot.Heading <= 135)
                         value = -90;
+                    else if (_robot.Heading >= 135 && _robot.Heading <= 180)
+                        value = 90;
+                    else if (_robot.Heading >= 90 && _robot.Heading <= 135)
+                        value = -90;
+                    else if (_robot.Heading >= 225 && _robot.Heading <= 270)
+                        value = 90;
+                    #region FacingAwayFromWall
+                    if (_robot.Heading >= 315 && _robot.Heading <= 45)
+                        value = 0;
+                    #endregion
                 }
                 else if (_robot.Y > _minDist)
                 {
                     if (_robot.Heading >= 315 && _robot.Heading <= 360)
-                        value = -90;
+                        value = 90;
                     else if (_robot.Heading >= 0 && _robot.Heading <= 45)
                         value = 90;
+                    else if (_robot.Heading >= 45 && _robot.Heading <= 90)
+                        value = -90;
+                    else if (_robot.Heading >= 270 && _robot.Heading <= 315)
+                        value = 90;
+                    #region FacingAwayFromWall
+                    if (_robot.Heading >= 135 && _robot.Heading <= 225)
+                        value = 0;
+                    #endregion
                 }
             }
             return value; // Returns 90 degrees by default.
