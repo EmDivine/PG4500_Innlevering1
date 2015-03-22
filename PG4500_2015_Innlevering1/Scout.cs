@@ -1,7 +1,7 @@
-﻿using PG4500_2015_Innlevering1;
+﻿using Draziel.Coordinates;
+using PG4500_2015_Innlevering1;
 using Robocode;
 using Robocode.Util;
-using Draziel.Coordinates;
 using System.Collections.Generic;
 
 namespace Draziel
