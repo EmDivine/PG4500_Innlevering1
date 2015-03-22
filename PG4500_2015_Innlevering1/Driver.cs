@@ -1,13 +1,15 @@
-﻿using Robocode;
-using PG4500_2015_Innlevering1;
+﻿using PG4500_2015_Innlevering1;
+using Robocode;
 using System;
 
 namespace Robot
 {
     class Driver
     {
-        private malseb_horjan_Draziel _robot;
+		//not in use, placeholder for code in development.
 		private Scout _scout;
+
+        private malseb_horjan_Draziel _robot;
         private double _minDist;
         private double _enemyHeading;
         private double _enemyBearing;
@@ -21,29 +23,21 @@ namespace Robot
         public void Drive()
         {
             _robot.SetAhead(200);
-            //_robot.Execute();
         }
 
         public void Evade(string type)
         {
             if (type.Equals("Wall"))
             {
-                // If robot is close to a wall, it slows down, turns around (not smart, should be fixed), sets new couse (straight ahead) and 
                 _robot.MaxVelocity = 5;
                 _robot.SetTurnRight(WallSide());
-				//_robot.WaitFor(new TurnCompleteCondition(_robot));
-                Drive();
-                //_robot.Execute();
-				//_robot.MaxVelocity = 8;
-                //_robot.Execute();
 
             }
+				//evade bot not yet active.
             else if (type.Equals("Bot"))
             {
-                //_robot.Out.WriteLine("{0}\t# Woah there! Too close to a different robot. Backing away to avoid damage.", _robot.Time);
                 _robot.SetTurnRight(_enemyBearing + 90);
                 _robot.SetAhead(500);
-				//_robot.Execute();
             }
 
             

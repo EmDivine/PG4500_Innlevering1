@@ -38,20 +38,12 @@ namespace Robot
 			_robot = robot;
 			_robot.IsAdjustRadarForGunTurn = true;
 			_enemyNames = new List<string>();
-			_timeSpotted = -1000;
+			_timeSpotted = _robot.Time;
 		}
 
 		public void Sweep()
 		{
-			if (_robot.Time > _timeSpotted + 100)
-			{
 				_robot.SetTurnRadarRight(360);
-			}
-			else
-			{
-				_robot.Scan();
-			}
-			//_robot.Scan();
 		}
 
 		private void RegisterEnemy(string name)

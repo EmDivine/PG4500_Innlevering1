@@ -14,15 +14,9 @@ namespace Robot
 			_robot.IsAdjustGunForRobotTurn = true;
 		}
 
-		public void Predict(Polar2 targetPosition, Polar2 targetHeading)
+		public void onScannedRobot(Polar2 targetPosition, Polar2 targetHeading)
 		{
-			//_robot.SetTurnGunRight(Utils.NormalRelativeAngleDegrees(targetPosition.Angle - GunBearing));
-			AimAt(targetPosition + targetHeading * (targetPosition.Magnitude/Rules.GetBulletSpeed(1)));
-		}
-
-		public void OnScannedRobot(ScannedRobotEvent e)
-		{
-			Predict(new Polar2(e.Distance, e.Bearing), new Polar2(e.Velocity, e.Heading));
+			AimAt(targetPosition + targetHeading * (targetPosition.Magnitude / Rules.GetBulletSpeed(1)));
 		}
 
 		private double GunBearing
@@ -33,7 +27,6 @@ namespace Robot
 			}
 		}
 
-		//TODO make this
 		private void AimAt(Vector2 targetPosition)
 		{
 			Polar2 targetRelativePosition = targetPosition - _robot.Position;
